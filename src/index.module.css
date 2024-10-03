@@ -1,0 +1,91 @@
+.page{
+    padding: 0;
+    margin: 0;
+    height: 100vh;
+    overflow-x: hidden;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    background-color: rgb(59, 59, 59);
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    position: relative;
+}
+
+.controller{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(43, 39, 39);
+    border-radius: 0.7rem;
+    font-size: 0.8rem;
+    margin: 6rem 0 2rem 0rem;
+}
+
+.controller p{
+    margin: 0.5rem;
+    cursor: pointer;
+    box-sizing: border-box;
+}
+
+.textfield{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    position: relative;
+}
+
+.textarea{
+    opacity: 0;
+    height: 0;
+    width: 0;
+}
+
+.textspace{
+    padding: 1rem;
+    margin: 1rem;
+    font-size: 1.4rem;
+    line-height: 2;
+    font-weight: 300;
+    word-break: break-all;
+    color: rgb(116, 108, 108);
+    /* height:50px; */
+    /* overflow: hidden; */
+}
+
+.textcover{
+    position: absolute;
+    height: 100%;
+    width: 100vw;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(50, 49, 49, 0.817);
+}
+
+.hide{
+    opacity: 0;
+}
+
+.btn{
+    background-color: rgb(0, 95, 204);
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+}
+
+.bar{
+    color: rgb(0, 126, 252);
+    font-weight: 700;
+    font-size: 1.4rem;
+    position: absolute;
+    transition:all 0.2s ;
+}
+
+.bars{
+    background-color: gray;
+    height: 50%;
+    width: 2px;
+
+}
