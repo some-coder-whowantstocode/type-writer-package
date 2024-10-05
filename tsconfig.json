@@ -11,6 +11,6 @@
         "moduleResolution": "node",
         "forceConsistentCasingInFileNames": true
     },
-    "include": ["src"],
+    "include": ["src", "src/helper.ts", "service/models.ts"],
     "exclude": ["node_modules", "dist", "rollup.config.js"]
     }

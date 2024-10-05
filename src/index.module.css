@@ -33,6 +33,9 @@
     justify-content: center;
     flex-direction: column;
     position: relative;
+    overflow: hidden;
+    box-shadow: inset 0px 1px 6px 0px rgb(52, 48, 48);
+    width: 100vw;
 }
 
 .textarea{
@@ -45,12 +48,13 @@
     padding: 1rem;
     margin: 1rem;
     font-size: 1.4rem;
-    line-height: 2;
     font-weight: 300;
     word-break: break-all;
     color: rgb(116, 108, 108);
-    /* height:50px; */
-    /* overflow: hidden; */
+    height:5.2rem;
+    max-width: 1000px;
+    position: relative;
+    top: 0px;
 }
 
 .textcover{

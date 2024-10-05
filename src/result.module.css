@@ -1,0 +1,13 @@
+.graph{
+    height: 60vh;
+    width: 90vw;
+    position: relative;
+    background-color: red;
+}
+.xaxis{
+    display: flex;
+
+}
+.yaxis{
+
+}

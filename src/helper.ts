@@ -1,15 +1,12 @@
-import { wpmresp } from "./models";
-
-export const generateText = (numbers: boolean, symbols: boolean, brackets: boolean, size:number) : string =>{
+export const generateText = (numbers: boolean, symbols: boolean ) : string =>{
     const STORE = {
         letters:"abcdefghijklmnopqrstuvwxyz",
         numbers:"0123456789",
         symbols:"!@#$%^&*`~/?,.",
-        brackets:"<>{}[]()"
     };
 
+
     let stringstore = "", output = "";
-    size = Math.max(30, size);
         stringstore += STORE.letters;
 
     if(numbers){
@@ -20,14 +17,11 @@ export const generateText = (numbers: boolean, symbols: boolean, brackets: boole
         stringstore += STORE.symbols;
     }
 
-    if(brackets){
-        stringstore += STORE.brackets;
-    }
 
-    if(size <= 0 || stringstore.length == 0) return output;
+    if( stringstore.length == 0) return output;
 
-    for(let i = 0;i < size;i++){
-        let pos = Math.round(Math.random() * stringstore.length);
+    for(let i = 0;i < 200;i++){
+        let pos = Math.round(Math.random() * (stringstore.length -1));
         output += stringstore[pos];
     }
     output.replace(/\s+/g, ' ').trim();
@@ -48,7 +42,7 @@ export const matchText = (input: string, target: string) : Array<string> => {
     return ans;
 }
 
-export const wpm = ( time : number, words : number, mistakes : number ) : wpmresp =>{
+export const wpm = ( time : number, words : number, mistakes : number )  =>{
     const time_in_minute = time / 60;
     const raw_wpm : number = Math.round(words / time_in_minute) || 0;
     const accuracy : number =  Math.round(((words - mistakes) / words) * 100) || 0;
