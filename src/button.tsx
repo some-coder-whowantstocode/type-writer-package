@@ -1,5 +1,5 @@
 'use client'
-import React, {useState, useEffect, useRef} from 'react';
+import React, {useState, useEffect, useRef, useCallback} from 'react';
 import { generateText, matchText, wpm } from './helper';
 import styles from './index.module.css'
 import Result from './result';
@@ -17,7 +17,6 @@ const Button = ()=>{
     const [numbers, setnumbers] = useState(false);
     const [reps, setreps] = useState(20);
     const [initialtime, setinit] = useState(0);
-    const [mistakes, setmistakes] = useState(0);
     const [start, setstart] = useState(false);
     const [show, setshow] = useState(false);
     const [details, setdetails] = useState([]);
@@ -28,6 +27,10 @@ const Button = ()=>{
     const count = useRef(0);
     const currenttop = useRef(0);
     const bartop = useRef(0);
+    const mistakes = useRef(0);
+    const inputcount = useRef(0);
+    const timecount = useRef(0);
+    const limitation = useRef(0);
 
     const reset = ()=>{
         settext('');
@@ -36,9 +39,10 @@ const Button = ()=>{
         let output : string = generateText(numbers, symbols);
         settext(output);
         setinit(0);
-        setmistakes(0);
+        timecount.current = 0;
+        mistakes.current = 0;
+        limitation.current = 0;
         setstart(false);
-        // setdetails([]);
         currenttop.current = 0;
     }
 
@@ -77,34 +81,55 @@ const Button = ()=>{
         }
     ]
 
-    const num_options = [2, 40, 80, 160]
+    const num_options = [1, 40, 80, 160]
+
+    useEffect(()=>{
+        inputcount.current = inputtext.length;
+    },[inputtext])
 
     useEffect(()=>{
     reset();
     },[numbers, symbols , time, reps]);
 
     useEffect(()=>{
+        timecount.current = initialtime;
         if(initialtime >= reps){
-            let data = wpm(initialtime, inputtext.length, mistakes);
+            let data = wpm(initialtime, inputcount.current, mistakes.current);
             setdetails(prev=>[...prev,data])
             setresult(true);
             reset();
         }
     },[initialtime, reps])
 
+  
+
     useEffect(()=>{
+        try {
+            
         let timeid;
         if(time && start){
+            const countdown = (reps)/10;
             timeid = setInterval(() => {
                 setinit(pervstate => pervstate+1);
-                let data = wpm(reps, inputtext.length, mistakes);
+                limitation.current ++;
+                console.log(limitation.current, countdown)
+                if(limitation.current < countdown){
+                    return;
+                }
+                limitation.current = 0;
+                let data = wpm(timecount.current, inputcount.current, mistakes.current);
                 setdetails(prev=>[...prev,data])
-            }, 1000);
+            },1000 );
     
         }
         return ()=>{
             clearInterval(timeid);
         }
+
+           
+    } catch (error) {
+        console.log(error);
+    }
     },[time, start])
 
     useEffect(()=>{
@@ -122,15 +147,16 @@ const Button = ()=>{
     },[text])
 
     useEffect(()=>{
+        try {
             let output = matchText(inputtext, text);
             checktext(output);
             const elem = lastelem.current;
             const bar = barRef.current;
-            const len = Math.max(0, inputtext.length - 1);
+            const len = Math.max(0, inputcount.current - 1);
             if(!elem || !len || !bar) return;
             const pos = elem.children[len] && elem.children[len]?.getBoundingClientRect();
             if(pos ){
-                if(inputtext.length === 0){
+                if(inputcount.current === 0){
                     bar.style.left = `${pos.left}px`;
                     bar.style.top = bartop.current;
                 }else{
@@ -143,6 +169,11 @@ const Button = ()=>{
                     bar.style.left = `${pos.right}px`;
                 }
             }
+
+            
+        } catch (error) {
+            console.log(error)
+        }
     },[inputtext, text]);
 
     const controller =()=>{
@@ -284,21 +315,14 @@ const Button = ()=>{
                         setshow(true)
                     }
                         if(e.nativeEvent.inputType === "insertText" && e.target.value[count.current] !== text[count.current]){
-                            setmistakes(prevstate=>prevstate +1);
+                            mistakes.current +=1;
                             
                         }
                         if(e.nativeEvent.inputType === "insertText" || e.nativeEvent.inputType === 'deleteContentBackward' || e.nativeEvent.inputType === 'deleteWordBackward' ){
                             count.current += 1;
                             setiptext(e.target.value);
                         }
-                        
-                        if(inputtext.length === text.length){
-                            let data = wpm(initialtime, inputtext.length, mistakes);
-                            setdetails(prev=>[...prev,data]);
-                            setresult(true);
-                            reset();
-                            return;
-                        }
+                    
                 }}
                 value={inputtext}
                 name="" 
