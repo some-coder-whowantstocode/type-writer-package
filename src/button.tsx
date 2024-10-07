@@ -8,8 +8,8 @@ import Result from './result';
 const Button = ()=>{
 
 
-    const [text, settext] = useState("");
-    const [inputtext, setiptext]  = useState("");
+    const [text, settext] = useState([]);
+    const [inputtext, setiptext]  = useState([]);
     const [checkedtext, checktext] = useState([]);
     const [focused, setfocus] = useState(false);
     const [time, settime] = useState(true);
@@ -24,19 +24,21 @@ const Button = ()=>{
 
     const barRef = useRef(null);
     const lastelem = useRef(null);
-    const count = useRef(0);
     const currenttop = useRef(0);
     const bartop = useRef(0);
     const mistakes = useRef(0);
     const inputcount = useRef(0);
     const timecount = useRef(0);
     const limitation = useRef(0);
+    const currentword = useRef("");
+    const lettercount = useRef("");
+    const wordcount = useRef(0);
 
     const reset = ()=>{
         settext('');
-        setiptext("");
+        setiptext([]);
         checktext([]);
-        let output : string = generateText(numbers, symbols);
+        let output : Array<string> = generateText(numbers, symbols);
         settext(output);
         setinit(0);
         timecount.current = 0;
@@ -44,6 +46,10 @@ const Button = ()=>{
         limitation.current = 0;
         setstart(false);
         currenttop.current = 0;
+        setdetails([]);
+        lettercount.current = 0;
+        wordcount.current = 0;
+        currentword.current = ""
     }
 
     const text_addons = [
@@ -112,7 +118,6 @@ const Button = ()=>{
             timeid = setInterval(() => {
                 setinit(pervstate => pervstate+1);
                 limitation.current ++;
-                console.log(limitation.current, countdown)
                 if(limitation.current < countdown){
                     return;
                 }
@@ -126,7 +131,7 @@ const Button = ()=>{
             clearInterval(timeid);
         }
 
-           
+        
     } catch (error) {
         console.log(error);
     }
@@ -137,6 +142,7 @@ const Button = ()=>{
             const elem = lastelem.current;
             const bar = barRef.current;
             const pos = elem.children[0] && elem.children[0].getBoundingClientRect();
+            if(!pos) return;
             bar.style.left = `${pos.left}px`;
             !bar.style.top  && (
                 bar.style.top = `${pos.y}px`,
@@ -150,11 +156,12 @@ const Button = ()=>{
         try {
             let output = matchText(inputtext, text);
             checktext(output);
-            const elem = lastelem.current;
             const bar = barRef.current;
-            const len = Math.max(0, inputcount.current - 1);
+            const len = inputcount.current;
+            const elem = lastelem.current;
             if(!elem || !len || !bar) return;
-            const pos = elem.children[len] && elem.children[len]?.getBoundingClientRect();
+            const i = lettercount.current 
+            const pos = elem.children[i] && elem.children[i]?.getBoundingClientRect();
             if(pos ){
                 if(inputcount.current === 0){
                     bar.style.left = `${pos.left}px`;
@@ -166,7 +173,7 @@ const Button = ()=>{
                         currenttop.current += top - newTop;
                         elem.style.top = currenttop.current + "px";
                     }
-                    bar.style.left = `${pos.right}px`;
+                    bar.style.left = `${pos.left}px`;
                 }
             }
 
@@ -263,29 +270,60 @@ const Button = ()=>{
                 className={styles.textspace}
                 htmlFor="textinput"
                 >
+                    
                     {
+                        
                         checkedtext.map((type,i)=>(
-                            <span 
-                            key={`${i}th checked`}
-                            style={{
-                                color: type === 't' ? 'white' : 'rgb(186, 66, 66)',
-                                paddingLeft:'5px'
-                            }}
-                            >{text[i] === " " ? inputtext[i] : text[i]}</span>
+                            <>
+                            {
+                                text[i].length > type.length 
+                                ?
+                                text[i].split('').map((t,j)=>(
+                                    <span 
+                                    key={`${i}${j}th checked`}
+                                    style={{
+                                        color: type.length > j ? type[j] === 't' ? 'white' : 'rgb(186, 66, 66)' : 'gray',
+                                        marginRight: j=== text[i].length -1 && "10px",
+                                        marginLeft: j=== 0 && "10px"
+                                    }}
+                                    >{!text[i][j] ? inputtext[i][j] : text[i][j]}</span>
+                                ))
+                                :
+                                type.map((t,j)=>(
+                                    <span 
+                                    key={`${i}${j}th checkedeee`}
+                                    style={{
+                                        color: t === 't' ? 'white' : 'rgb(186, 66, 66)',
+                                        marginRight: j=== text[i].length -1 && "10px",
+                                        marginLeft: j=== 0 && "10px"
+                                    }}
+                                    >{!text[i][j] ? inputtext[i][j] : text[i][j]}</span>
+                                ))
+                            }
+                            </>
                         ))
                     }
                     
                     
             {
-                text.substring(checkedtext.length).split('').map((elem, i)=>(
-                    <span
-                    key={`${i}th text`}
+                text.slice(Math.max(0,checkedtext.length),text.length).map((elem, i)=>(
+                    <>
+                    {
+                        elem.split('').map((l,j)=>(
+                            <span
+                            key={`${i}${j}th text`}
                             style={{
-                                paddingLeft:'5px'
+                                marginRight: j=== text[i].length -1 && "10px",
+                                marginLeft: j=== 0 && "10px"
                             }}
-                    >
-                        {elem}
-                    </span>
+                            >
+                                {l}
+                            </span>
+                        ))
+                    }
+                   
+                    </>
+                    
                 ))            
             }
                     
@@ -314,13 +352,49 @@ const Button = ()=>{
                     if(!show){
                         setshow(true)
                     }
-                        if(e.nativeEvent.inputType === "insertText" && e.target.value[count.current] !== text[count.current]){
-                            mistakes.current +=1;
+                        if(e.nativeEvent.inputType === "insertText"){
+                            const ip = [...inputtext];
+                            if(e.nativeEvent.data === " "){
+                                if(currentword.current.length < 1) return;
+                                if(text[wordcount.current].length > currentword.current.length){
+                                    lettercount.current += text[wordcount.current].length -  currentword.current.length;
+                                }
+                                currentword.current = "";
+                                wordcount.current ++;
+                                ip.push(currentword.current)
+                                const elem = lastelem.current;
+                                const bar = barRef.current;
+                                if(elem && bar){
+                                    console.log(lettercount.current)
+                                    const pos = elem.children[lettercount.current ] && elem.children[lettercount.current ]?.getBoundingClientRect();
+                                    bar.style.left = `${pos.right}px`;
+                                }
+                            }else{
+                                lettercount.current ++;
+                                currentword.current += e.nativeEvent.data;
+                                // if(currentword.current.length < text[inputcount.])
+                                if(ip)
+                                    ip.pop();
+                                    ip.push(currentword.current)
+                            }
+                            // if(text[inputtext.length-1].startsWith(inputtext[inputtext.length-1])){
+                            //     mistakes.current +=1;
+                            // }
+                            setiptext(ip);
+                            }else if(e.nativeEvent.inputType === 'deleteContentBackward' ){
+                            let iptext = [...inputtext];
+                            const word = iptext[iptext.length-1];
+                            lettercount.current--;
+                            if(word.length === 0){
+                                iptext.pop();
+                                currentword.current = iptext[iptext.length-1]
+                            }else{
+                                currentword.current = currentword.current.slice(0,currentword.current.length - 1)
+                                iptext.pop();
+                                iptext.push(currentword.current)
+                            }
                             
-                        }
-                        if(e.nativeEvent.inputType === "insertText" || e.nativeEvent.inputType === 'deleteContentBackward' || e.nativeEvent.inputType === 'deleteWordBackward' ){
-                            count.current += 1;
-                            setiptext(e.target.value);
+                            setiptext(iptext);
                         }
                     
                 }}
@@ -335,10 +409,11 @@ const Button = ()=>{
                 opacity:`${(show) ? 0 : 1 }`,
             }}
             onClick={async()=>{
-                let output : string = await generateText(numbers, symbols);
+                let output : Array<string> = await generateText(numbers, symbols);
                 settext(output);
                 checktext([]);
                 setiptext("");
+                reset();
             }}>
                 generate
             </button>

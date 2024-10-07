@@ -1,41 +1,29 @@
-export const generateText = (numbers: boolean, symbols: boolean ) : string =>{
-    const STORE = {
-        letters:"abcdefghijklmnopqrstuvwxyz",
-        numbers:"0123456789",
-        symbols:"!@#$%^&*`~/?,.",
-    };
+'use client'
+import english from '../static/english.json' assert { type: 'json' };
 
 
-    let stringstore = "", output = "";
-        stringstore += STORE.letters;
-
-    if(numbers){
-        stringstore += STORE.numbers;
-    }
-
-    if(symbols){
-        stringstore += STORE.symbols;
-    }
-
-
-    if( stringstore.length == 0) return output;
+export const generateText = (numbers: boolean, symbols: boolean ) : Array<string> =>{
+    const output = [];
 
     for(let i = 0;i < 200;i++){
-        let pos = Math.round(Math.random() * (stringstore.length -1));
-        output += stringstore[pos];
+        let pos = Math.round(Math.random() * (english.words.length -1));
+        output.push(english.words[pos]);
     }
-    output.replace(/\s+/g, ' ').trim();
     return output;
 
 }
 
-export const matchText = (input: string, target: string) : Array<string> => {
+export const matchText = (input: Array<string>, target: Array<string>) : Array<string> => {
     const ans = [];
+    
     for(let i=0;i <input.length;i++){
-        if(input[i] === target[i]){
-            ans[i] = "t";
-        }else{
-            ans[i] = "f";
+        ans.push(new Array());
+        for(let j=0;j<input[i].length;j++){
+            if(input[i][j] === target[i][j]){
+                ans[i][j] = "t";
+            }else{
+                ans[i][j] = "f";
+            }
         }
     }
     

@@ -1,4 +1,4 @@
-"use client"; // Add this line at the top
+"use client";
 
 import React, { useEffect, useState, useRef } from 'react';
 import styles from './result.module.css'
@@ -22,14 +22,12 @@ const Result = ({ data }) => {
             acc.push(data[i].accuracy);
             raw_w.push(data[i].raw_wpm);
         }
-        console.log(w,raw_w,acc,secs)
         setwpm(w);
         setrwpm(raw_w);
         setaccuracy(acc);
         settime(secs);
 
     }, [ data]);
-
     useEffect(()=>{
         const handleResize =()=>{
             setsize({h:window.innerHeight /2,w:window.innerWidth,x:0,y:100})
@@ -44,6 +42,7 @@ const Result = ({ data }) => {
     const generateGraph = (x, y, raw_wpm) => {
         try {
         if (!canvasref.current) return;
+        const spaceX = 55;
         const canvas = canvasref.current;
         canvas.height = graphsize.h;
         canvas.width = graphsize.w;
@@ -68,12 +67,12 @@ const Result = ({ data }) => {
         context.lineWidth = 2;
         context.beginPath()
         context.strokeStyle = 'gold';
-        context.moveTo(59, graphsize.h - 19);
+        context.moveTo(spaceX, graphsize.h - 19);
         context.lineTo(graphsize.w -19, graphsize.h - 19);
         context.stroke();
             const distY = (canvas.height - 20) / 10;
             const maxgivenwpm = Math.max(...x);
-            const maxWpm = (maxgivenwpm / 10) * 10;
+            const maxWpm = (maxgivenwpm / 5) * 5;
             const valY = Math.round(maxWpm/5) || 10;
             for (let i = 1; i <= 5; i++) {
                 context.beginPath();
@@ -82,14 +81,14 @@ const Result = ({ data }) => {
                 context.strokeStyle = 'black';
                 context.stroke();
                 context.fillStyle = 'black';
-                context.fillText(i * valY, 20, canvas.height - (i * distY + distY - 54));
+                context.fillText(i * valY, 20, canvas.height - (i * distY  ));
             }
             
 
         context.beginPath()
         context.strokeStyle = 'black';
-        context.moveTo(59, graphsize.h - 19);
-        context.lineTo(59, canvas.height /3);
+        context.moveTo(spaceX, graphsize.h - 19);
+        context.lineTo(spaceX, canvas.height /3);
         context.stroke();
     
         //generate points
