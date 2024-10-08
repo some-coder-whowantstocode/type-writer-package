@@ -7,7 +7,6 @@ import Result from './result';
 
 const Button = ()=>{
 
-    // three 2-d arrays original text, input text, graph
 
     const [originalText, setoriginal] = useState([]);
     const [inputText, setinput] = useState([]);
@@ -17,6 +16,7 @@ const Button = ()=>{
     const currentwordlocation = useRef(0);
     const updateRef = useRef(false);
     const barRef = useRef(null);
+    const currenttop = useRef(null);
 
     const restart = ()=>{
 
@@ -57,13 +57,35 @@ const Button = ()=>{
 
     useEffect(()=>{
         try {
-            if(!TextareaRef.current || !currentwordlocation.current || !barRef) return;
-                const word = TextareaRef.current.children[currentwordlocation.current].children;
-                const letter = word[Math.max(inputText[currentwordlocation.current].length -1, 0)]?.getBoundingClientRect();
-                const bar = barRef.current;
+            if(!TextareaRef.current  || !barRef.current) return;
+                const lines = TextareaRef.current;
+                const words = lines?.children;
+                if(!words) return;
+                const i = currentwordlocation.current;
+                const word = words[i]?.children;
+                if(!word) return;
+                const j = inputText[currentwordlocation.current].length;
+                const letter = word[Math.max(j - 1,0)]?.getBoundingClientRect();
                 if(!letter) return;
-                bar.style.left = `${letter.right}px`;
-                bar.style.top = `${letter.top}px`; 
+                const bar = barRef.current;
+                const top = Math.round(Number(bar.style.top.replace(/px$/, '')));
+                const newTop = Math.round(letter.y);
+                if(!currenttop.current){
+                    currenttop.current += top - newTop;
+                    bar.style.top = `${letter.top}px`; 
+                }else{
+                    if( top !== newTop ){
+                        currenttop.current +=  top - newTop;
+                        lines.style.top = currenttop.current + "px";
+                    }
+                }
+                if(j === 0){
+                    bar.style.left = `${letter.left }px`;
+                    
+                }else{
+                    bar.style.left = `${letter.right}px`;
+                    // bar.style.top = `${letter.top}px`; 
+                }
             
         } catch (error) {
             console.log(error);
@@ -232,11 +254,11 @@ const Button = ()=>{
     //                 bar.style.top = bartop.current;
     //             }else{
     //                 let top = Math.round(Number(bar.style.top.replace(/px$/, ''))), newTop = Math.round(pos.y);
-    //                 if( top !== newTop ){
-    //                     let val = Math.round(Number(elem.style.top.replace(/px$/, '')));
-    //                     currenttop.current += top - newTop;
-    //                     elem.style.top = currenttop.current + "px";
-    //                 }
+                    // if( top !== newTop ){
+                    //     let val = Math.round(Number(elem.style.top.replace(/px$/, '')));
+                    //     currenttop.current += top - newTop;
+                    //     elem.style.top = currenttop.current + "px";
+                    // }
     //                 bar.style.left = `${pos.left}px`;
     //             }
     //         }
@@ -341,7 +363,7 @@ const Button = ()=>{
                             <span
                             key={`${i}th checked`}
                             style={{
-                                marginRight:"10px"
+                                marginRight:"10px",
                             }}
                             >
                             {
@@ -350,6 +372,8 @@ const Button = ()=>{
                                     key={`${i}${j}th checked`}
                                     style={{
                                         color: p === "N" ? 'gray'  : p === 'T' ? 'white' : 'rgb(186, 66, 66)',
+                                        padding:'0px 2px',
+                                        fontWeight:'400'
                                     }}
                                     >{!originalText[i][j] ? inputText[i][j] : originalText[i][j]}</span>
                                 ))
