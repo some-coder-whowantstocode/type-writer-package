@@ -49,13 +49,13 @@
     margin: 1rem;
     font-size: 1.4rem;
     font-weight: 300;
-    word-break: break-all;
+    word-break:break-all;
     color: rgb(116, 108, 108);
     height:5.2rem;
-    max-width: 1000px;
     position: relative;
     top: 0px;
 }
+
 
 .textcover{
     position: absolute;

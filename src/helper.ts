@@ -13,21 +13,17 @@ export const generateText = (numbers: boolean, symbols: boolean ) : Array<string
 
 }
 
-export const matchText = (input: Array<string>, target: Array<string>) : Array<string> => {
-    const ans = [];
-    
+export const matchText = (input: Array<string>, target: Array<string>, store: Array<Array<string>>) : Array<Array<string>> => {
     for(let i=0;i <input.length;i++){
-        ans.push(new Array());
         for(let j=0;j<input[i].length;j++){
             if(input[i][j] === target[i][j]){
-                ans[i][j] = "t";
+                store[i][j] = "T";
             }else{
-                ans[i][j] = "f";
+                store[i][j] = "F";
             }
         }
     }
-    
-    return ans;
+    return store;
 }
 
 export const wpm = ( time : number, words : number, mistakes : number )  =>{
