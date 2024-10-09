@@ -1,6 +1,10 @@
 'use client'
 import english from '../static/english.json' assert { type: 'json' };
 
+interface match{
+    store:Array<Array<string>>,
+    wrongwords:number
+}
 
 export const generateText = (numbers: boolean, symbols: boolean ) : Array<string> =>{
     const output = [];
@@ -13,8 +17,10 @@ export const generateText = (numbers: boolean, symbols: boolean ) : Array<string
 
 }
 
-export const matchText = (input: Array<string>, target: Array<string>, store: Array<Array<string>>) : Array<Array<string>> => {
+export const matchText = (input: Array<string>, target: Array<string>, store: Array<Array<string>>) : match => {
+    let wrongwords = 0;
     for(let i=0;i <input.length;i++){
+        if(input[i] !== target[i]) wrongwords ++;
         for(let j=0;j<input[i].length;j++){
             if(input[i][j] === target[i][j]){
                 store[i][j] = "T";
@@ -23,17 +29,21 @@ export const matchText = (input: Array<string>, target: Array<string>, store: Ar
             }
         }
     }
-    return store;
+    return {store,wrongwords};
 }
 
-export const wpm = ( time : number, words : number, mistakes : number )  =>{
-    const time_in_minute = time / 60;
-    const raw_wpm : number = Math.round(words / time_in_minute) || 0;
-    const accuracy : number =  Math.round(((words - mistakes) / words) * 100) || 0;
-    const wpm : number = raw_wpm * (accuracy/100);
+export const wpm = (time: number, words: number, mistakes: number) => {
+    try {
+    const timeInMinutes = time / 60;
+    const raw_wpm = Math.round(words / timeInMinutes) || 0;
+    const accuracy = words > 0 ? Math.max(Math.round(((words - mistakes) / words) * 100), 0) : 0;
+    const wpm = Math.max(Math.round(raw_wpm * (accuracy / 100)), 0);
     return {
         wpm,
         raw_wpm,
-        accuracy
+        accuracy,
+    };
+    } catch (error) {
+        console.log(error)
     }
-}
+    };

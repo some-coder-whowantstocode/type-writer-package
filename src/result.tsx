@@ -3,31 +3,38 @@
 import React, { useEffect, useState, useRef } from 'react';
 import styles from './result.module.css'
 
-const Result = ({ data }) => {
+const Result = ({ data, timelimit }) => {
     const [wpm, setwpm] = useState([]);
     const [raw_wpm, setrwpm] = useState([]);
     const [accuracy, setaccuracy] = useState([]);
     const [time, settime] = useState([]);
-    const [graphsize, setsize] = useState({h:window.innerHeight /2,w:window.innerWidth,x:0,y:100})
+    const [graphsize, setsize] = useState({h:window.innerHeight /2,w:window.innerWidth/1.3,x:50,y:50})
+    const avgval = useRef({accuracy:0});
 
-    const box = useRef(null);
     const canvasref = useRef(null);
 
     useEffect(() => {
         if(!data) return;
         const secs = new Array(), w = new Array(), acc = new Array(), raw_w = new Array();
+        let wpm=0,raw=0,accuracy=0;
         for(let i=0;i<data.length;i++){
             secs.push(i+1);
             w.push(data[i].wpm);
             acc.push(data[i].accuracy);
             raw_w.push(data[i].raw_wpm);
+            accuracy += data[i].accuracy;
         }
+        avgval.current.accuracy = Math.max(Math.round(accuracy / acc.length),0);
         setwpm(w);
         setrwpm(raw_w);
         setaccuracy(acc);
         settime(secs);
-
     }, [ data]);
+
+    useEffect(()=>{
+        generateGraph();
+    },[wpm, raw_wpm, accuracy, time])
+
     useEffect(()=>{
         const handleResize =()=>{
             setsize({h:window.innerHeight /2,w:window.innerWidth,x:0,y:100})
@@ -39,138 +46,171 @@ const Result = ({ data }) => {
         }
     },[])
 
-    const generateGraph = (x, y, raw_wpm) => {
+    const generateGraphdots = (context, maxheight, maxgivenwpm, spaceX, height, points, color )=>{
         try {
-        if (!canvasref.current) return;
-        const spaceX = 55;
-        const canvas = canvasref.current;
-        canvas.height = graphsize.h;
-        canvas.width = graphsize.w;
-        const context = canvas.getContext('2d');
-        context.fillStyle = 'gray';
-        context.fillRect(0, 0, canvas.width, canvas.height);
-        const distX = (canvas.width - 40) / 11;
-        context.font = '1rem Roboto';
-        context.fillStyle = 'black';
-    
-        for (let i = 1; i <= 10; i++) {
-            context.beginPath();
-            context.arc(i * distX + distX, canvas.height - 19, 2, 0, 2 * Math.PI, false);
-            context.fillStyle = 'gold';
-            context.fill();
-            context.strokeStyle = 'gold';
-            context.stroke();
-            context.fillStyle = 'black';
-            context.fillText(i, i * distX + distX - 5, canvas.height);
-        }
-    
-        context.lineWidth = 2;
-        context.beginPath()
-        context.strokeStyle = 'gold';
-        context.moveTo(spaceX, graphsize.h - 19);
-        context.lineTo(graphsize.w -19, graphsize.h - 19);
-        context.stroke();
-            const distY = (canvas.height - 20) / 10;
-            const maxgivenwpm = Math.max(...x);
-            const maxWpm = (maxgivenwpm / 5) * 5;
-            const valY = Math.round(maxWpm/5) || 10;
-            for (let i = 1; i <= 5; i++) {
-                context.beginPath();
-                context.fillStyle = 'black';
-                context.fill();
-                context.strokeStyle = 'black';
-                context.stroke();
-                context.fillStyle = 'black';
-                context.fillText(i * valY, 20, canvas.height - (i * distY  ));
-            }
-            
-
-        context.beginPath()
-        context.strokeStyle = 'black';
-        context.moveTo(spaceX, graphsize.h - 19);
-        context.lineTo(spaceX, canvas.height /3);
-        context.stroke();
-    
-        //generate points
-
         const pos = new Array();
-
         context.strokeWidth = 2;
-        x.map((i,index)=>{
-            const maxheight = canvas.height/3;
-            const percentage = (i /maxgivenwpm) * 100;
-            const x = (index * distX) + distX, y = (canvas.height -  (maxheight/ 100) * percentage) - 39;
-            pos.push({x,y});
+        
+        const path = new Path2D();
+        points.map((i, index) => {
+        const percentage = Math.round((i / maxgivenwpm) * 100);
+        const x = index * spaceX + spaceX;
+        const y = height - ((percentage / 100) * maxheight) - 19;
+        pos.push({ x, y, i });
+            
+        if (index === 0) {
+            path.moveTo(spaceX, height -19)
+            path.lineTo(x,y);
+        }
+        if (index > 0) {
+        path.lineTo(x,y);
+            
+        }
+    });
+        path.lineTo(pos[pos.length - 1].x , height - 19);
+        path.lineTo(spaceX , height  - 19)
+        path.closePath();
+        context.fillStyle = color
+        context.fill(path)
+        context.closePath();
+
+        pos.map(({x,y,i},index)=>{
             context.beginPath();
-            context.arc(x, y, 2, 0, 2 * Math.PI, false);
+            context.arc(x, y, i >0 ? 2 : 1, 0, 2 * Math.PI, false);
             context.fillStyle = 'gold';
             context.fill();
             context.strokeStyle = 'gold';
             context.stroke();
             context.closePath();
-            if(index >0){
-                // context.beginPath();
-                context.moveTo(pos[index-1].x,pos[index-1].y);
-                context.lineTo(x,y);
+            if(index > 0){
+                context.moveTo(pos[index - 1].x, pos[index - 1].y);
+                context.lineTo(x, y);
                 context.strokeStyle = 'gold';
                 context.stroke();
             }
-                
-            })
-            context.closePath();
+        })
 
-            const rawpos = new Array();
+    } catch (error) {
+        console.log(error);
+    }
+    }
+    const generateGraph = () => {
+        try {
+            if (!canvasref.current) return;
+            const canvas = canvasref.current;
+            const spaceX = (canvas.width/10) -3;
+            canvas.height = graphsize.h;
+            canvas.width = graphsize.w;
+            const context = canvas.getContext('2d');
+            context.fillStyle = 'rgb(52, 48, 48)';
+            context.fillRect(0, 0, canvas.width, canvas.height);
+            context.font = '0.9rem Roboto';
+            context.fillStyle = 'gray';
 
-            raw_wpm.map((i,index)=>{
-                const maxheight = canvas.height/3;
-                const percentage = (i /maxgivenwpm) * 100;
-                const x = (index * distX) + distX, y = (canvas.height -  (maxheight/ 100) * percentage) - 39;
-                rawpos.push({x,y});
-                context.beginPath();
-                context.arc(x, y, 2, 0, 2 * Math.PI, false);
-                context.fillStyle = 'darkgray';
-                context.fill();
-                context.strokeStyle = 'darkgray';
-                context.stroke();
-                context.closePath();
-                if(index >0){
-                    context.moveTo(rawpos[index-1].x,rawpos[index-1].y);
-                    context.lineTo(x,y);
-                    context.strokeStyle = 'darkgray';
-                    context.stroke();
-                }
-                    
-                })
+            // write time stamps in x axis
             
-            context.closePath();
+            for (let i = 1; i <= 10; i++) {
+            context.beginPath();
+            context.fillStyle = 'gold';
+            context.fill();
+            context.strokeStyle = 'gold';
+            context.stroke();
+            context.fillStyle = 'gray';
+            context.fillText(i, i * spaceX + spaceX - 5, canvas.height);
+            }
+            
+            // draw x line
+            context.lineWidth = 1;
+            context.beginPath();
+            context.strokeStyle = 'gray';
+            context.moveTo(spaceX, graphsize.h - 19);
+            context.lineTo(graphsize.w - 29, graphsize.h - 19);
+            context.stroke();
+
+            // creating y axis
+            const height = canvas.height;
+            const number_of_elems = 4;
+            const distY = (height - 80) / number_of_elems;
+            let valY ;
+            let maxgivenwpm;
+            if(raw_wpm.length > 0){
+                maxgivenwpm = Math.max(...raw_wpm) ;
+                const maxWpm = (maxgivenwpm / number_of_elems) * number_of_elems;
+                valY = Math.round(maxWpm / number_of_elems);
+            }else{
+                maxgivenwpm = 100;
+                valY = 10;
+            }
+            
+            for (let i = 1; i <= number_of_elems; i++) {
+            context.beginPath();
+            context.fillStyle = 'gray';
+            context.fill();
+            context.strokeStyle = 'gray';
+            context.stroke();
+            context.fillStyle = 'gray';
+            context.fillText(i * valY, 16, height -  i * distY);
+            }
+            
+            // draw y line
+            context.beginPath();
+            context.strokeStyle = 'gray';
+            context.moveTo(spaceX, graphsize.h - 19);
+            context.lineTo(spaceX,  60);
+            context.stroke();
+            
+          // generate points
+
+            console.log(wpm, raw_wpm)
+        const maxheight = canvas.height - 120;
+        raw_wpm && generateGraphdots(context, maxheight, maxgivenwpm, spaceX, canvas.height, raw_wpm , '#5b5757');
+        wpm && generateGraphdots(context, maxheight, maxgivenwpm, spaceX, canvas.height, wpm, '#3333336e' );
         
         } catch (error) {
-            console.log(error)
+        console.log(error);
         }
+
     };
     
 
     
 
     return (
-        <div
-            className={styles.graph}
-            ref={box}
-            >
+        <>
                 <canvas 
                 ref={canvasref} 
                 height={graphsize.h} 
                 width={graphsize.w}
-                style={{
-                    position:'absolute',
-                    left:`${graphsize.x}px`,
-                    top:`${graphsize.y}px`
-                }}
                 ></canvas>
-        {
-        data &&  generateGraph(wpm, time, raw_wpm,)
-        }
-        </div>
+                <div
+                className={styles.data}
+                >
+                    <div>
+                    wpm 
+                        <p>
+                        {wpm.length > 0 ? wpm[wpm.length -1] : 0}
+                        </p>
+                    </div>
+                    <div>
+                    raw 
+                        <p>
+                        {raw_wpm.length > 0 ? raw_wpm[raw_wpm.length -1] : 0}
+                        </p>
+                    </div>
+                    <div> 
+                    accuracy 
+                        <p>
+                        {avgval.current.accuracy}     
+                        </p>
+                    </div>
+                    <div> 
+                    time 
+                        <p>
+                        {timelimit + "s" || 0 + "s"}
+                        </p>
+                    </div>
+                </div>
+                </>
     );
 };
 
