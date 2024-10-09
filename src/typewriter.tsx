@@ -2,7 +2,7 @@ import React from 'react'
 import Button from './button'
 import Result from './result'
 
-const Index = () => {
+const TyperWriter = () => {
   return (
     <>
     {/* <Result/> */}
@@ -11,4 +11,4 @@ const Index = () => {
   )
 }
 
-export default Index
+export default TyperWriter
