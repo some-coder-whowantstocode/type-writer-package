@@ -8,8 +8,10 @@ const Result = ({ data, timelimit }) => {
     const [raw_wpm, setrwpm] = useState([]);
     const [accuracy, setaccuracy] = useState([]);
     const [time, settime] = useState([]);
-    const [graphsize, setsize] = useState({h:window.innerHeight /2,w:window.innerWidth/1.3,x:50,y:50})
+    const [graphsize, setsize] = useState({h:window.innerHeight /2,w:window.innerWidth,x:50,y:50})
+
     const avgval = useRef({accuracy:0});
+    const canvasdata = useRef(null);
 
     const canvasref = useRef(null);
 
@@ -29,6 +31,7 @@ const Result = ({ data, timelimit }) => {
         setrwpm(raw_w);
         setaccuracy(acc);
         settime(secs);
+        console.log("hi this is new")
     }, [ data]);
 
     useEffect(()=>{
@@ -37,7 +40,25 @@ const Result = ({ data, timelimit }) => {
 
     useEffect(()=>{
         const handleResize =()=>{
-            setsize({h:window.innerHeight /2,w:window.innerWidth,x:0,y:100})
+            if(!canvasref.current || !canvasdata.current) return;
+            const tempCanvas = document.createElement('canvas');
+            tempCanvas.width = canvasdata.current.width;
+            tempCanvas.height = canvasdata.current.height;
+            const tempContext = tempCanvas.getContext('2d');
+            const canvas = canvasref.current;
+            const context = canvas.getContext('2d');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight / 2;
+            tempContext.putImageData(canvasdata.current, 0, 0)
+            const dataURL = tempCanvas.toDataURL();
+            
+            const img = new Image();
+            img.src = dataURL;
+            
+            img.onload = () => {
+                context.clearRect(0, 0, canvas.width, canvas.height);                
+                context.drawImage(img, 0, 0, canvas.width, canvas.height);
+            };
         }
         window.addEventListener("resize",handleResize);
 
@@ -46,12 +67,38 @@ const Result = ({ data, timelimit }) => {
         }
     },[])
 
+
+    // const  calculateControlPoints =(dataPoints)=> {
+    //     const controlPoints = [];
+    //     const x0 = dataPoints[0].x;
+    //     const y0 = dataPoints[0].y;
+    //     for (let i = 1; i < dataPoints.length - 1; i++) {
+    //     const x1 = dataPoints[i - 1].x;
+    //     const y1 = dataPoints[i - 1].y;
+    //     const x2 = dataPoints[i].x;
+    //     const y2 = dataPoints[i].y;
+    //     const x3 = dataPoints[i + 1].x;
+    //     const y3 = dataPoints[i + 1].y;
+        
+    //       const controlX1 = x1 + 0.5 * (x2 - x0);
+    //       const controlY1 = y1 + 0.5 * (y2 - y0);
+    //       const controlX2 = x2 + 0.5 * (x3 - x1);
+    //       const controlY2 = y2 + 0.5 * (y3 - y1);
+
+            
+    //         controlPoints.push([controlX1, controlY1, controlX2, controlY2]);
+    //     }
+    //     return controlPoints;
+    //     }
+
     const generateGraphdots = (context, maxheight, maxgivenwpm, spaceX, height, points, color )=>{
         try {
         const pos = new Array();
         context.strokeWidth = 2;
         
         const path = new Path2D();
+        //color the graph area
+        points.length > 0
         points.map((i, index) => {
         const percentage = Math.round((i / maxgivenwpm) * 100);
         const x = index * spaceX + spaceX;
@@ -74,6 +121,10 @@ const Result = ({ data, timelimit }) => {
         context.fill(path)
         context.closePath();
 
+        // draw the points 
+        // const controlpoints = calculateControlPoints(pos);
+        // console.log('hi',controlpoints)
+
         pos.map(({x,y,i},index)=>{
             context.beginPath();
             context.arc(x, y, i >0 ? 2 : 1, 0, 2 * Math.PI, false);
@@ -89,6 +140,24 @@ const Result = ({ data, timelimit }) => {
                 context.stroke();
             }
         })
+
+        //  draw the lines 
+        // context.moveTo(pos[0].x,pos[0].y);
+        // for(let i=1;i<pos.length;i++){
+        //     const x1 = pos[i - 1].x;
+        //     const y1 = pos[i - 1].y;
+        //     const x2 = pos[i].x;
+        //     const y2 = pos[i].y;
+        //     const controlX1 = controlpoints[i - 1][0];
+        //     const controlY1 = controlpoints[i - 1][1];
+        //     const controlX2 = controlpoints[i][0];
+        //     const controlY2 = controlpoints[i][1];
+        //     context.bezierCurveTo(controlX1, controlY1, controlX2, controlY2, x2, y2);
+        //     context.strokeStyle = 'gold';
+        //     context.stroke();
+        // }
+        // context.closePath();
+
 
     } catch (error) {
         console.log(error);
@@ -161,10 +230,12 @@ const Result = ({ data, timelimit }) => {
             
           // generate points
 
-            console.log(wpm, raw_wpm)
         const maxheight = canvas.height - 120;
-        raw_wpm && generateGraphdots(context, maxheight, maxgivenwpm, spaceX, canvas.height, raw_wpm , '#5b5757');
-        wpm && generateGraphdots(context, maxheight, maxgivenwpm, spaceX, canvas.height, wpm, '#3333336e' );
+        raw_wpm.length > 0 && generateGraphdots(context, maxheight, maxgivenwpm, spaceX, canvas.height, raw_wpm , '#5b5757');
+        wpm.length > 0 && generateGraphdots(context, maxheight, maxgivenwpm, spaceX, canvas.height, wpm, '#3333336e' );
+        
+        const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+        canvasdata.current = imageData;
         
         } catch (error) {
         console.log(error);

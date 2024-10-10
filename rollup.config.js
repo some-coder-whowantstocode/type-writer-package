@@ -1,18 +1,30 @@
-const typescript = require("rollup-plugin-typescript2")
-const pkg = require("../package.json")
+import typescript from 'rollup-plugin-typescript2';
+import postcss from 'rollup-plugin-postcss';
+import json from '@rollup/plugin-json';
+import copy from 'rollup-plugin-copy';
+import nextjs from '@rollup/plugin-node-resolve';
+import path from 'path'
 
-module.exports = {
-    input: 'src/index.ts',
-    output: [
-    {
-        file: pkg.main,
-        format: 'cjs',
-        exports: 'named',
-        sourcemap: true,
-        strict: false
-    }
-    ],
+export default {
+    input: 'src/typewriter.tsx',
+    output: {
+        file: 'dist/bundle.js',
+        format: 'esm'
+    },
+    external: ['react', 'react-dom'],
     plugins: [
-    typescript()
-    ],
-}
+        typescript(),
+        postcss({
+            modules: true,  
+            extract:false
+            // extract: path.resolve('dist/bundle.css'),  
+        }),
+        json(),
+        copy({
+            targets: [
+                { src: 'static/*', dest: 'dist/static' }
+            ]
+        }),
+        nextjs()
+    ]
+};
