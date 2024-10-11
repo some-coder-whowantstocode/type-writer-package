@@ -31,8 +31,33 @@ Use the TypeWriter component in your JSX:
 * Graph visualization of typing performance
 * Adjustable number of repetitions
 
+## New Update
+Now, you can add a couple of customizations to the TypeWriter component :
+
+```
+    custommode?: boolean;
+    custominput?: string;
+    countbytime?: boolean;
+    repetition?: number;
+```
+
+## Customization Options:
+* custommode: Enable this to customize the text block.
+* custominput: Provide a custom string to use for the typing test.
+* countbytime: Set to true to count by time, false to count by words. Default is time.
+* repetition: Set the custom time in seconds (minimum 10, default is 20).
+
+```
+<TypeWriter
+    custommode={true}
+    custominput="Your custom string here"
+    countbytime={false}
+    repetition={30}
+/>
+```
+
 ## Contributing
 Contributions to the type-writer package are welcome! Please feel free to submit pull requests or issues on the [GitHub repository](https://github.com/some-coder-whowantstocode/type-writer-package).
 
 ## License
-This project is licensed under the ``` MIT ``` License.
+This project is licensed under the ``` ISC ``` License.

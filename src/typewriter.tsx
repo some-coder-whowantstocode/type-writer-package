@@ -4,8 +4,14 @@ import { generateText, matchText, wpm } from './helper';
 import styles from './index.module.css'
 import Result from './result';
 
+interface Typewriterprops {
+    custommode?: boolean;
+    custominput?: string;
+    countbytime?: boolean;
+    repetation?: number
+}
 
-const TyperWriter = ()=>{
+const TyperWriter : React.FC<Typewriterprops> = ({custommode, custominput, countbytime, repetation })=>{
 
 
     const [originalText, setoriginal] = useState([]);
@@ -32,7 +38,7 @@ const TyperWriter = ()=>{
     const mistakes = useRef(0);
     const unitdata = useRef({words:0, mistakes: 0});
     const updatedetails = useRef(false);
-    const paragraphsize = 200;
+    const paragraphsize = 20;
     const currentparagraphsize = useRef(paragraphsize);
     const num_options = [20, 40, 80, 160]
 
@@ -59,7 +65,16 @@ const TyperWriter = ()=>{
 
     const initiate = ()=>{
         try{
-            const text = generateText(numbers, symbols, paragraphsize);
+            let text;
+            if(custommode){
+                countbytime ? settime(countbytime) : settime(true);
+                repetation && repetation > 10 ? setreps(repetation) : setreps(20);
+            if(custominput)
+            text = custominput.split(' ');
+            text.length < 10 && (text = generateText(numbers, symbols, paragraphsize))
+            }else{
+                text = generateText(numbers, symbols, paragraphsize);
+            }
             setoriginal(text);
             const i = text.length;
             const tmap = new Array(i).fill("").map((t,i)=>new Array(text[i].length).fill("N"));
@@ -106,7 +121,6 @@ const TyperWriter = ()=>{
     },[inputText, originalText, textmap])
 
     useEffect(()=>{
-      console.log(currentwordlocation.current >= (2/3) * currentparagraphsize.current)
       if(currentwordlocation.current >= (2/3) * currentparagraphsize.current){
         currentparagraphsize.current += paragraphsize;
         const text = generateText(numbers, symbols, paragraphsize);
@@ -193,7 +207,7 @@ const TyperWriter = ()=>{
     useEffect(()=>{
         timecount.current = initialtime;
         if(!start ) return;
-          if(initialtime >= reps){
+            if(initialtime >= reps){
             let data = wpm(initialtime, currentwordlocation.current, mistakes.current );
             setdetails(prev=>[...prev,data])
             setresult(true);
@@ -296,7 +310,7 @@ const TyperWriter = ()=>{
     return (
         <>
         {
-            resultshow ?
+            resultshow &&
             <div
             className={styles.graph}
             style={{
@@ -314,13 +328,16 @@ const TyperWriter = ()=>{
                 reset
             </button>
             </div>
-            :
+
+        }
             <div
-            className={styles.page}
+            className={
+                !custommode ? styles.page : styles.part
+            }
             
             >
                 {
-                    controller()
+                    !custommode && controller()
                 }
                     <p 
                     style={{
@@ -391,6 +408,7 @@ const TyperWriter = ()=>{
 
                 onChange={(e)=>{
                     try {
+                        if(resultshow) return;
                         if(!start){
                             setstart(true);
                         }
@@ -398,15 +416,15 @@ const TyperWriter = ()=>{
                         switch(e.nativeEvent.inputType){
                             case "insertText":
                                 {
-                                  updateRef.current = true;
-                                  if(!time){
+                                    updateRef.current = true;
+                                    if(!time){
                                     updatedetails.current = true;
-                                  }
+                                    }
                                     const {data} = e.nativeEvent;
                                     if(data === " "){
-                                      if(!time){
+                                        if(!time){
                                         setinit(prev=>prev+1);
-                                      }
+                                        }
                                         const ip = [...inputText];
                                         if(ip[currentwordlocation.current].length < 1) return ;
                                         currentwordlocation.current ++;
@@ -500,7 +518,7 @@ const TyperWriter = ()=>{
                 name="" 
 
                 ></textarea>
-            <button  
+            {  !custommode && <button  
                 htmlFor='textinput'
                 onMouseDown={(e) => e.preventDefault()}
             className={styles.btn}
@@ -512,6 +530,7 @@ const TyperWriter = ()=>{
             }}>
                 generate
             </button>
+            }
             {
                         textmap && 
                         <span
@@ -522,7 +541,7 @@ const TyperWriter = ()=>{
                     </span>
                     }
             </div>
-        }
+        
         </>
     )
 }

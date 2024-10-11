@@ -1,12 +1,4 @@
 
-.xaxis{
-    display: flex;
-
-}
-.yaxis{
-
-}
-
 .data{
     display: grid;
     grid-template-columns: auto auto;

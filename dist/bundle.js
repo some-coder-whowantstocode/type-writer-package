@@ -931,20 +931,21 @@ var Result = function (_a) {
                 React.createElement("p", null, timelimit + "s" || 0 + "s")))));
 };
 
-var TyperWriter = function () {
-    var _a = useState([]), originalText = _a[0], setoriginal = _a[1];
-    var _b = useState([]), inputText = _b[0], setinput = _b[1];
-    var _c = useState([]), textmap = _c[0], setmap = _c[1];
-    var _d = useState(false), show = _d[0], setshow = _d[1];
-    var _e = useState(false), focused = _e[0], setfocus = _e[1];
-    var _f = useState(0), initialtime = _f[0], setinit = _f[1];
-    var _g = useState(false), symbols = _g[0], setsymbols = _g[1];
-    var _h = useState(false), numbers = _h[0], setnumbers = _h[1];
-    var _j = useState(true), time = _j[0], settime = _j[1];
-    var _k = useState(20), reps = _k[0], setreps = _k[1];
-    var _l = useState(false), resultshow = _l[0], setresult = _l[1];
-    var _m = useState([]), details = _m[0], setdetails = _m[1];
-    var _o = useState(false), start = _o[0], setstart = _o[1];
+var TyperWriter = function (_a) {
+    var custommode = _a.custommode, custominput = _a.custominput;
+    var _b = useState([]), originalText = _b[0], setoriginal = _b[1];
+    var _c = useState([]), inputText = _c[0], setinput = _c[1];
+    var _d = useState([]), textmap = _d[0], setmap = _d[1];
+    var _e = useState(false), show = _e[0], setshow = _e[1];
+    var _f = useState(false), focused = _f[0], setfocus = _f[1];
+    var _g = useState(0), initialtime = _g[0], setinit = _g[1];
+    var _h = useState(false), symbols = _h[0], setsymbols = _h[1];
+    var _j = useState(false), numbers = _j[0], setnumbers = _j[1];
+    var _k = useState(true), time = _k[0], settime = _k[1];
+    var _l = useState(20), reps = _l[0], setreps = _l[1];
+    var _m = useState(false), resultshow = _m[0], setresult = _m[1];
+    var _o = useState([]), details = _o[0], setdetails = _o[1];
+    var _p = useState(false), start = _p[0], setstart = _p[1];
     var TextareaRef = useRef(null);
     var currentwordlocation = useRef(0);
     var updateRef = useRef(false);
@@ -955,12 +956,19 @@ var TyperWriter = function () {
     var mistakes = useRef(0);
     var unitdata = useRef({ words: 0, mistakes: 0 });
     var updatedetails = useRef(false);
-    var paragraphsize = 200;
+    var paragraphsize = 20;
     var currentparagraphsize = useRef(paragraphsize);
     var num_options = [20, 40, 80, 160];
     var initiate = function () {
         try {
-            var text_1 = generateText(numbers, symbols, paragraphsize);
+            var text_1;
+            if (custommode) {
+                if (custominput)
+                    text_1 = custominput;
+            }
+            else {
+                text_1 = generateText(numbers, symbols, paragraphsize);
+            }
             setoriginal(text_1);
             var i = text_1.length;
             var tmap = new Array(i).fill("").map(function (t, i) { return new Array(text_1[i].length).fill("N"); });
@@ -1009,7 +1017,6 @@ var TyperWriter = function () {
         }
     }, [inputText, originalText, textmap]);
     useEffect(function () {
-        console.log(currentwordlocation.current >= (2 / 3) * currentparagraphsize.current);
         if (currentwordlocation.current >= (2 / 3) * currentparagraphsize.current) {
             currentparagraphsize.current += paragraphsize;
             var text_2 = generateText(numbers, symbols, paragraphsize);
@@ -1144,10 +1151,10 @@ var TyperWriter = function () {
             return (React.createElement("label", { htmlFor: 'textinput', onMouseDown: function (e) { return e.preventDefault(); }, className: styles$1.controller, style: {
                     opacity: "".concat((show) ? 0 : 1)
                 } },
-                text_addons.map(function (elem, i) { return (React.createElement("p", { key: "".concat(i, "th addon"), style: {
+                !custommode && text_addons.map(function (elem, i) { return (React.createElement("p", { key: "".concat(i, "th addon"), style: {
                         color: elem.value ? 'yellow' : "gray"
                     }, onClick: function () { return elem.func(); } }, elem.name)); }),
-                React.createElement("p", { className: styles$1.bars }),
+                !custommode && React.createElement("p", { className: styles$1.bars }),
                 typing_type.map(function (elem, i) { return (React.createElement("p", { key: "".concat(i, "th type"), style: {
                         color: elem.value === time ? 'yellow' : "gray"
                     }, onClick: function () { return elem.func(); } }, elem.name)); }),
