@@ -3,7 +3,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import styles from './result.module.css'
 
-const Result = ({ data, timelimit }) => {
+const Result = ({ data, timelimit, styling, setdata }) => {
     const [wpm, setwpm] = useState([]);
     const [raw_wpm, setrwpm] = useState([]);
     const [accuracy, setaccuracy] = useState([]);
@@ -31,7 +31,13 @@ const Result = ({ data, timelimit }) => {
         setrwpm(raw_w);
         setaccuracy(acc);
         settime(secs);
-        console.log("hi this is new")
+        setdata({
+            wpm: w.length > 0 ? w[w.length -1] : 0,
+            raw_wpm: raw_w.length > 0 ? raw_w[raw_w.length -1] : 0,
+            accuracy: avgval.current.accuracy,
+            time: timelimit + "s" || 0 + "s"
+        })
+        
     }, [ data]);
 
     useEffect(()=>{
@@ -128,15 +134,15 @@ const Result = ({ data, timelimit }) => {
         pos.map(({x,y,i},index)=>{
             context.beginPath();
             context.arc(x, y, i >0 ? 2 : 1, 0, 2 * Math.PI, false);
-            context.fillStyle = 'gold';
+            context.fillStyle = styling.important;
             context.fill();
-            context.strokeStyle = 'gold';
+            context.strokeStyle = styling.important;
             context.stroke();
             context.closePath();
             if(index > 0){
                 context.moveTo(pos[index - 1].x, pos[index - 1].y);
                 context.lineTo(x, y);
-                context.strokeStyle = 'gold';
+                context.strokeStyle = styling.important;
                 context.stroke();
             }
         })
@@ -171,27 +177,27 @@ const Result = ({ data, timelimit }) => {
             canvas.height = graphsize.h;
             canvas.width = graphsize.w;
             const context = canvas.getContext('2d');
-            context.fillStyle = 'rgb(52, 48, 48)';
+            context.fillStyle = styling.bg;
             context.fillRect(0, 0, canvas.width, canvas.height);
             context.font = '0.9rem Roboto';
-            context.fillStyle = 'gray';
+            context.fillStyle = styling.text;
 
             // write time stamps in x axis
             
             for (let i = 1; i <= 10; i++) {
             context.beginPath();
-            context.fillStyle = 'gold';
+            context.fillStyle = styling.important;
             context.fill();
-            context.strokeStyle = 'gold';
+            context.strokeStyle = styling.important;
             context.stroke();
-            context.fillStyle = 'gray';
+            context.fillStyle = styling.text;
             context.fillText(i, i * spaceX + spaceX - 5, canvas.height);
             }
             
             // draw x line
             context.lineWidth = 1;
             context.beginPath();
-            context.strokeStyle = 'gray';
+            context.strokeStyle = styling.text;
             context.moveTo(spaceX, graphsize.h - 19);
             context.lineTo(graphsize.w - 29, graphsize.h - 19);
             context.stroke();
@@ -213,17 +219,17 @@ const Result = ({ data, timelimit }) => {
             
             for (let i = 1; i <= number_of_elems; i++) {
             context.beginPath();
-            context.fillStyle = 'gray';
+            context.fillStyle = styling.text;
             context.fill();
-            context.strokeStyle = 'gray';
+            context.strokeStyle = styling.text;
             context.stroke();
-            context.fillStyle = 'gray';
+            context.fillStyle = styling.text;
             context.fillText(i * valY, 16, height -  i * distY);
             }
             
             // draw y line
             context.beginPath();
-            context.strokeStyle = 'gray';
+            context.strokeStyle = styling.text;
             context.moveTo(spaceX, graphsize.h - 19);
             context.lineTo(spaceX,  60);
             context.stroke();
@@ -256,27 +262,59 @@ const Result = ({ data, timelimit }) => {
                 <div
                 className={styles.data}
                 >
-                    <div>
+                    <div
+                    style={{
+                        color:styling.text
+                    }}
+                    >
                     wpm 
-                        <p>
+                        <p
+                        style={{
+                            color:styling.important
+                        }}
+                        >
                         {wpm.length > 0 ? wpm[wpm.length -1] : 0}
                         </p>
                     </div>
-                    <div>
+                    <div
+                    style={{
+                        color:styling.text
+                    }}
+                    >
                     raw 
-                        <p>
+                        <p
+                        style={{
+                            color:styling.important
+                        }}
+                        >
                         {raw_wpm.length > 0 ? raw_wpm[raw_wpm.length -1] : 0}
                         </p>
                     </div>
-                    <div> 
+                    <div
+                    style={{
+                        color:styling.text
+                    }}
+                    > 
                     accuracy 
-                        <p>
+                        <p
+                        style={{
+                            color:styling.important
+                        }}
+                        >
                         {avgval.current.accuracy}     
                         </p>
                     </div>
-                    <div> 
+                    <div
+                    style={{
+                        color:styling.text
+                    }}
+                    > 
                     time 
-                        <p>
+                        <p
+                        style={{
+                            color:styling.important
+                        }}
+                        >
                         {timelimit + "s" || 0 + "s"}
                         </p>
                     </div>

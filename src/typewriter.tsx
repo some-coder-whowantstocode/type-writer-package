@@ -4,15 +4,46 @@ import { generateText, matchText, wpm } from './helper';
 import styles from './index.module.css'
 import Result from './result';
 
+interface customstyles{
+    bg?:string,
+    text?:string,
+    correct?:string,
+    wrong?:string,
+    important?:string,
+    btn_bg?:string,
+    btn_txt?:string,
+    ctrl_bg?:string,
+    ctrl_text?:string,
+    bar_col?:string
+}
+
 interface Typewriterprops {
     custommode?: boolean;
     custominput?: string;
     countbytime?: boolean;
-    repetation?: number
+    repetation?: number;
+    customStyle?: customstyles;
+    setdata?: Function;
 }
 
-const TyperWriter : React.FC<Typewriterprops> = ({custommode, custominput, countbytime, repetation })=>{
+const TyperWriter : React.FC<Typewriterprops> = ({custommode, custominput, countbytime, repetation, customStyle, setdata })=>{
 
+
+    const STYLE = (()=>{
+            return{
+                bg:customStyle?.bg || 'rgb(52, 48, 48)',
+                text:customStyle?.text || 'rgb(116, 108, 108)',
+                correct:customStyle?.correct || 'rgb(255, 255, 255)',
+                wrong:customStyle?.wrong || 'rgb(186, 66, 66)',
+                important:customStyle?.important || 'rgb(255, 196, 0)',
+                btn_bg:customStyle?.important || 'rgba(81, 114, 152, 0.406)',
+                btn_txt:customStyle?.important || 'white',
+                ctrl_bg:customStyle?.important || 'rgb(43, 39, 39)',
+                ctrl_text:customStyle?.important || 'gray',
+                bar_col:customStyle?.important || 'rgb(0, 126, 252)'
+            }
+        
+    })() 
 
     const [originalText, setoriginal] = useState([]);
     const [inputText, setinput] = useState([]);
@@ -259,7 +290,8 @@ const TyperWriter : React.FC<Typewriterprops> = ({custommode, custominput, count
                 onMouseDown={(e) => e.preventDefault()}
                 className={styles.controller}
                 style={{
-                    opacity:`${(show) ? 0 : 1 }`
+                    opacity:`${(show) ? 0 : 1 }`,
+                    backgroundColor:STYLE.ctrl_bg
                 }}
                 >
                     {
@@ -267,7 +299,7 @@ const TyperWriter : React.FC<Typewriterprops> = ({custommode, custominput, count
                         <p
                         key={`${i}th addon`}
                         style={{
-                            color:elem.value ? 'yellow' : "gray"
+                            color:elem.value ? STYLE.important : STYLE.ctrl_text
                         }}
                         onClick={()=>elem.func()}
                         >
@@ -281,7 +313,7 @@ const TyperWriter : React.FC<Typewriterprops> = ({custommode, custominput, count
                             <p
                             key={`${i}th type`}
                             style={{
-                                color:elem.value === time ? 'yellow' : "gray"
+                                color:elem.value === time ? STYLE.important : STYLE.ctrl_text
                             }}
                             onClick={()=>elem.func()}
                             >{elem.name}</p>
@@ -293,7 +325,7 @@ const TyperWriter : React.FC<Typewriterprops> = ({custommode, custominput, count
                             <p
                             key={`${i}th value`}
                             style={{
-                                color:reps === elem ? "yellow" : "gray",
+                                color:reps === elem ? STYLE.important : STYLE.ctrl_text,
                             }}
                             onClick={()=>setreps(elem)}
                             >
@@ -314,10 +346,10 @@ const TyperWriter : React.FC<Typewriterprops> = ({custommode, custominput, count
             <div
             className={styles.graph}
             style={{
-                backgroundColor:'rgb(52, 48, 48)'
+                backgroundColor:STYLE.bg
             }}
             >
-            <Result data={details} timelimit={reps} />
+            <Result data={details} timelimit={reps} styling={STYLE} setdata={setdata} />
             <button  
                 htmlFor='textinput'
                 onMouseDown={(e) => e.preventDefault()}
@@ -332,9 +364,11 @@ const TyperWriter : React.FC<Typewriterprops> = ({custommode, custominput, count
         }
             <div
             className={
-                !custommode ? styles.page : styles.part
+                `${!custommode ? styles.page : styles.part}`
             }
-            
+            style={{
+                backgroundColor:STYLE.bg
+            }}
             >
                 {
                     !custommode && controller()
@@ -342,7 +376,7 @@ const TyperWriter : React.FC<Typewriterprops> = ({custommode, custominput, count
                     <p 
                     style={{
                         opacity:`${(show) ? 1 : 0 }`,
-                        color:'gold'
+                        color:STYLE.important
                     }}
                     >
                     {initialtime}
@@ -372,7 +406,7 @@ const TyperWriter : React.FC<Typewriterprops> = ({custommode, custominput, count
                                     <span 
                                     key={`${i}${j}th checked`}
                                     style={{
-                                        color: p === "N" ? 'gray'  : p === 'T' ? 'white' : 'rgb(186, 66, 66)',
+                                        color: p === "N" ? STYLE.text  : p === 'T' ? STYLE.correct : STYLE.wrong,
                                         padding:'0px 2px',
                                         fontWeight:'400'
                                     }}

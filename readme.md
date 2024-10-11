@@ -30,16 +30,7 @@ Use the TypeWriter component in your JSX:
 * Real-time typing speed and accuracy tracking
 * Graph visualization of typing performance
 * Adjustable number of repetitions
-
-## New Update
-Now, you can add a couple of customizations to the TypeWriter component :
-
-```
-    custommode?: boolean;
-    custominput?: string;
-    countbytime?: boolean;
-    repetition?: number;
-```
+* customizable design
 
 ## Customization Options:
 * custommode: Enable this to customize the text block.
@@ -47,14 +38,51 @@ Now, you can add a couple of customizations to the TypeWriter component :
 * countbytime: Set to true to count by time, false to count by words. Default is time.
 * repetition: Set the custom time in seconds (minimum 10, default is 20).
 
+
+## Passing props
+Now, you can add a couple of customizations to the TypeWriter component :
+
 ```
+    custommode: boolean;
+    custominput: string;
+    countbytime: boolean;
+    repetition: number;
+    customStyle: object;
+    getdata: function
+```
+
+## All available custom styling
+
+* ```bg``` : background color of whole component.
+* ```text``` : text color.
+* ```correct``` : correct text color in text area. 
+* ```wrong``` : background color.
+* ```important``` : hihgligting any text or any important text color.
+* ```btn_bg``` : background color of all buttons.
+* ```btn_txt``` : text color of all buttons.
+* ```ctrl_bg``` : background color of the controller for text area.
+* ```ctrl_text``` : text color of the controller.
+* ```bar_col``` : color of the bar that follows text in text area.
+
+## Example code 
+
+
+```
+const data=(prop : object)=>{
+    console.log(prop);
+}
+
+
 <TypeWriter
     custommode={true}
     custominput="Your custom string here"
     countbytime={false}
     repetition={30}
+    customStyle={{}}
+    getdata={data}
 />
 ```
+
 
 ## Contributing
 Contributions to the type-writer package are welcome! Please feel free to submit pull requests or issues on the [GitHub repository](https://github.com/some-coder-whowantstocode/type-writer-package).
