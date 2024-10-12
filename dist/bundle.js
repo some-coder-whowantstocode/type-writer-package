@@ -692,16 +692,16 @@ function styleInject(css, ref) {
   }
 }
 
-var css_248z$1 = ".index-module_page__e4R6n{\r\n    padding: 0;\r\n    margin: 0;\r\n    height: 100vh;\r\n    overflow-x: hidden;\r\n    display: flex;\r\n    align-items: center;\r\n    flex-direction: column;\r\n    background-color: rgb(59, 59, 59);\r\n    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;\r\n    position: relative;\r\n}\r\n\r\n.index-module_graph__Kjafh{\r\n    height: 100vh;\r\n    width: 100vw;\r\n    position: relative;\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: center;\r\n    flex-direction: column;\r\n}\r\n\r\n.index-module_controller__sU6yo{\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: center;\r\n    background-color: rgb(43, 39, 39);\r\n    border-radius: 0.7rem;\r\n    font-size: 0.8rem;\r\n    margin: 6rem 0 2rem 0rem;\r\n}\r\n\r\n.index-module_controller__sU6yo p{\r\n    margin: 0.5rem;\r\n    cursor: pointer;\r\n    box-sizing: border-box;\r\n}\r\n\r\n.index-module_textfield__Twesk{\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: center;\r\n    flex-direction: column;\r\n    position: relative;\r\n    overflow: hidden;\r\n    box-shadow: inset 0px 1px 6px 0px rgb(52, 48, 48);\r\n    width: 100vw;\r\n}\r\n\r\n.index-module_textarea__cMW-q{\r\n    opacity: 0;\r\n    height: 0;\r\n    width: 0;\r\n}\r\n\r\n.index-module_textspace__kRbNE{\r\n    padding: 1rem;\r\n    margin: 1rem;\r\n    font-size: 1.4rem;\r\n    font-weight: 300;\r\n    word-break:break-all;\r\n    color: rgb(116, 108, 108);\r\n    height:5.2rem;\r\n    position: relative;\r\n    top: 0px;\r\n}\r\n\r\n\r\n.index-module_textcover__OvpTC{\r\n    position: absolute;\r\n    height: 100%;\r\n    width: 100vw;\r\n    color: white;\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: center;\r\n    background-color: rgba(50, 49, 49, 0.817);\r\n}\r\n\r\n.index-module_hide__wk9CD{\r\n    opacity: 0;\r\n}\r\n\r\n.index-module_btn__qo6sS{\r\n    background-color: rgba(81, 114, 152, 0.406);\r\n    color: white;\r\n    border: none;\r\n    padding: 0.5rem 1rem;\r\n    cursor: pointer;\r\n    margin: 1rem 0rem;\r\n    border-radius: 0.7rem;\r\n}\r\n.index-module_btn__qo6sS:hover{\r\n    background-color: rgba(109, 131, 155, 0.406);\r\n}\r\n\r\n.index-module_bar__kSGlx{\r\n    color: rgb(0, 126, 252);\r\n    font-weight: 200;\r\n    font-size: 1.4rem;\r\n    position: absolute;\r\n    transition:all 0.2s ;\r\n}\r\n\r\n.index-module_bars__hL5-Y{\r\n    background-color: gray;\r\n    height: 50%;\r\n    width: 2px;\r\n\r\n}";
-var styles$1 = {"page":"index-module_page__e4R6n","graph":"index-module_graph__Kjafh","controller":"index-module_controller__sU6yo","textfield":"index-module_textfield__Twesk","textarea":"index-module_textarea__cMW-q","textspace":"index-module_textspace__kRbNE","textcover":"index-module_textcover__OvpTC","hide":"index-module_hide__wk9CD","btn":"index-module_btn__qo6sS","bar":"index-module_bar__kSGlx","bars":"index-module_bars__hL5-Y"};
+var css_248z$1 = ".index-module_page__e4R6n{\r\n    padding: 0;\r\n    margin: 0;\r\n    height: 100vh;\r\n    overflow-x: hidden;\r\n    display: flex;\r\n    align-items: center;\r\n    flex-direction: column;\r\n    background-color: rgb(59, 59, 59);\r\n    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;\r\n    position: relative;\r\n}\r\n\r\n.index-module_part__mxzWF{\r\n    overflow-x: hidden;\r\n    display: flex;\r\n    align-items: center;\r\n    flex-direction: column;\r\n    background-color: rgb(59, 59, 59);\r\n    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;\r\n    position: relative;\r\n}\r\n\r\n.index-module_graph__Kjafh{\r\n    height: 100vh;\r\n    width: 100vw;\r\n    position: absolute;\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: center;\r\n    flex-direction: column;\r\n    top: 0;\r\n    left: 0;\r\n    z-index: 100000;\r\n}\r\n\r\n.index-module_controller__sU6yo{\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: center;\r\n    border-radius: 0.7rem;\r\n    font-size: 0.8rem;\r\n    margin: 6rem 0 2rem 0rem;\r\n}\r\n\r\n.index-module_controller__sU6yo p{\r\n    margin: 0.5rem;\r\n    cursor: pointer;\r\n    box-sizing: border-box;\r\n}\r\n\r\n.index-module_textfield__Twesk{\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: center;\r\n    flex-direction: column;\r\n    position: relative;\r\n    overflow: hidden;\r\n    box-shadow: inset 0px 1px 6px 0px rgb(52, 48, 48);\r\n    width: 100vw;\r\n\r\n}\r\n\r\n.index-module_textarea__cMW-q{\r\n    opacity: 0;\r\n    height: 0;\r\n    width: 0;\r\n}\r\n\r\n.index-module_textspace__kRbNE{\r\n    padding: 1rem;\r\n    margin: 1rem;\r\n    font-size: 1.4rem;\r\n    font-weight: 300;\r\n    word-break:break-all;\r\n    color: rgb(116, 108, 108);\r\n    height:5.2rem;\r\n    position: relative;\r\n    top: 0px;\r\n}\r\n\r\n\r\n.index-module_textcover__OvpTC{\r\n    position: absolute;\r\n    height: 100%;\r\n    width: 100vw;\r\n    color: white;\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: center;\r\n    background-color: rgba(50, 49, 49, 0.817);\r\n}\r\n\r\n.index-module_hide__wk9CD{\r\n    opacity: 0;\r\n}\r\n\r\n.index-module_btn__qo6sS{\r\n    background-color: rgba(81, 114, 152, 0.406);\r\n    color: white;\r\n    border: none;\r\n    padding: 0.5rem 1rem;\r\n    cursor: pointer;\r\n    margin: 1rem 0rem;\r\n    border-radius: 0.7rem;\r\n}\r\n.index-module_btn__qo6sS:hover{\r\n    background-color: rgba(109, 131, 155, 0.406);\r\n}\r\n\r\n.index-module_bar__kSGlx{\r\n    color: rgb(0, 126, 252);\r\n    font-weight: 200;\r\n    font-size: 1.4rem;\r\n    position: absolute;\r\n    transition:all 0.2s ;\r\n}\r\n\r\n.index-module_bars__hL5-Y{\r\n    background-color: gray;\r\n    height: 50%;\r\n    width: 2px;\r\n\r\n}";
+var styles$1 = {"page":"index-module_page__e4R6n","part":"index-module_part__mxzWF","graph":"index-module_graph__Kjafh","controller":"index-module_controller__sU6yo","textfield":"index-module_textfield__Twesk","textarea":"index-module_textarea__cMW-q","textspace":"index-module_textspace__kRbNE","textcover":"index-module_textcover__OvpTC","hide":"index-module_hide__wk9CD","btn":"index-module_btn__qo6sS","bar":"index-module_bar__kSGlx","bars":"index-module_bars__hL5-Y"};
 styleInject(css_248z$1);
 
-var css_248z = "\r\n.result-module_xaxis__fCwnf{\r\n    display: flex;\r\n\r\n}\r\n.result-module_yaxis__kFOBO{\r\n\r\n}\r\n\r\n.result-module_data__0GyWr{\r\n    display: grid;\r\n    grid-template-columns: auto auto;\r\n    padding: 1rem;\r\n    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;\r\n}\r\n.result-module_data__0GyWr div{\r\n    font-size: 1.3rem;\r\n    padding: 1rem 5rem;\r\n    color: gray;\r\n}\r\n.result-module_data__0GyWr div p{\r\n    color: gold;\r\n    font-size: 1.8rem;\r\n}";
-var styles = {"xaxis":"result-module_xaxis__fCwnf","yaxis":"result-module_yaxis__kFOBO","data":"result-module_data__0GyWr"};
+var css_248z = "\r\n.result-module_data__0GyWr{\r\n    display: grid;\r\n    grid-template-columns: auto auto;\r\n    padding: 1rem;\r\n    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;\r\n}\r\n.result-module_data__0GyWr div{\r\n    font-size: 1.3rem;\r\n    padding: 1rem 5rem;\r\n    color: gray;\r\n}\r\n.result-module_data__0GyWr div p{\r\n    color: gold;\r\n    font-size: 1.8rem;\r\n}";
+var styles = {"data":"result-module_data__0GyWr"};
 styleInject(css_248z);
 
 var Result = function (_a) {
-    var data = _a.data, timelimit = _a.timelimit;
+    var data = _a.data, timelimit = _a.timelimit, styling = _a.styling, setdata = _a.setdata;
     var _b = useState([]), wpm = _b[0], setwpm = _b[1];
     var _c = useState([]), raw_wpm = _c[0], setrwpm = _c[1];
     var _d = useState([]), accuracy = _d[0], setaccuracy = _d[1];
@@ -727,7 +727,12 @@ var Result = function (_a) {
         setrwpm(raw_w);
         setaccuracy(acc);
         settime(secs);
-        console.log("hi this is new");
+        setdata({
+            wpm: w.length > 0 ? w[w.length - 1] : 0,
+            raw_wpm: raw_w.length > 0 ? raw_w[raw_w.length - 1] : 0,
+            accuracy: avgval.current.accuracy,
+            time: timelimit + "s" || 0 + "s"
+        });
     }, [data]);
     useEffect(function () {
         generateGraph();
@@ -810,15 +815,15 @@ var Result = function (_a) {
                 var x = _a.x, y = _a.y, i = _a.i;
                 context.beginPath();
                 context.arc(x, y, i > 0 ? 2 : 1, 0, 2 * Math.PI, false);
-                context.fillStyle = 'gold';
+                context.fillStyle = styling.important;
                 context.fill();
-                context.strokeStyle = 'gold';
+                context.strokeStyle = styling.important;
                 context.stroke();
                 context.closePath();
                 if (index > 0) {
                     context.moveTo(pos_1[index - 1].x, pos_1[index - 1].y);
                     context.lineTo(x, y);
-                    context.strokeStyle = 'gold';
+                    context.strokeStyle = styling.important;
                     context.stroke();
                 }
             });
@@ -852,24 +857,24 @@ var Result = function (_a) {
             canvas.height = graphsize.h;
             canvas.width = graphsize.w;
             var context = canvas.getContext('2d');
-            context.fillStyle = 'rgb(52, 48, 48)';
+            context.fillStyle = styling.bg;
             context.fillRect(0, 0, canvas.width, canvas.height);
             context.font = '0.9rem Roboto';
-            context.fillStyle = 'gray';
+            context.fillStyle = styling.text;
             // write time stamps in x axis
             for (var i = 1; i <= 10; i++) {
                 context.beginPath();
-                context.fillStyle = 'gold';
+                context.fillStyle = styling.important;
                 context.fill();
-                context.strokeStyle = 'gold';
+                context.strokeStyle = styling.important;
                 context.stroke();
-                context.fillStyle = 'gray';
+                context.fillStyle = styling.text;
                 context.fillText(i, i * spaceX + spaceX - 5, canvas.height);
             }
             // draw x line
             context.lineWidth = 1;
             context.beginPath();
-            context.strokeStyle = 'gray';
+            context.strokeStyle = styling.text;
             context.moveTo(spaceX, graphsize.h - 19);
             context.lineTo(graphsize.w - 29, graphsize.h - 19);
             context.stroke();
@@ -890,16 +895,16 @@ var Result = function (_a) {
             }
             for (var i = 1; i <= number_of_elems; i++) {
                 context.beginPath();
-                context.fillStyle = 'gray';
+                context.fillStyle = styling.text;
                 context.fill();
-                context.strokeStyle = 'gray';
+                context.strokeStyle = styling.text;
                 context.stroke();
-                context.fillStyle = 'gray';
+                context.fillStyle = styling.text;
                 context.fillText(i * valY, 16, height - i * distY);
             }
             // draw y line
             context.beginPath();
-            context.strokeStyle = 'gray';
+            context.strokeStyle = styling.text;
             context.moveTo(spaceX, graphsize.h - 19);
             context.lineTo(spaceX, 60);
             context.stroke();
@@ -917,22 +922,52 @@ var Result = function (_a) {
     return (React.createElement(React.Fragment, null,
         React.createElement("canvas", { ref: canvasref, height: graphsize.h, width: graphsize.w }),
         React.createElement("div", { className: styles.data },
-            React.createElement("div", null,
+            React.createElement("div", { style: {
+                    color: styling.text
+                } },
                 "wpm",
-                React.createElement("p", null, wpm.length > 0 ? wpm[wpm.length - 1] : 0)),
-            React.createElement("div", null,
+                React.createElement("p", { style: {
+                        color: styling.important
+                    } }, wpm.length > 0 ? wpm[wpm.length - 1] : 0)),
+            React.createElement("div", { style: {
+                    color: styling.text
+                } },
                 "raw",
-                React.createElement("p", null, raw_wpm.length > 0 ? raw_wpm[raw_wpm.length - 1] : 0)),
-            React.createElement("div", null,
+                React.createElement("p", { style: {
+                        color: styling.important
+                    } }, raw_wpm.length > 0 ? raw_wpm[raw_wpm.length - 1] : 0)),
+            React.createElement("div", { style: {
+                    color: styling.text
+                } },
                 "accuracy",
-                React.createElement("p", null, avgval.current.accuracy)),
-            React.createElement("div", null,
+                React.createElement("p", { style: {
+                        color: styling.important
+                    } }, avgval.current.accuracy)),
+            React.createElement("div", { style: {
+                    color: styling.text
+                } },
                 "time",
-                React.createElement("p", null, timelimit + "s" || 0 + "s")))));
+                React.createElement("p", { style: {
+                        color: styling.important
+                    } }, timelimit + "s" || 0 + "s")))));
 };
 
 var TyperWriter = function (_a) {
-    var custommode = _a.custommode, custominput = _a.custominput;
+    var custommode = _a.custommode, custominput = _a.custominput, countbytime = _a.countbytime, repetation = _a.repetation, customStyle = _a.customStyle, setdata = _a.setdata;
+    var STYLE = (function () {
+        return {
+            bg: (customStyle === null || customStyle === void 0 ? void 0 : customStyle.bg) || 'rgb(52, 48, 48)',
+            text: (customStyle === null || customStyle === void 0 ? void 0 : customStyle.text) || 'rgb(116, 108, 108)',
+            correct: (customStyle === null || customStyle === void 0 ? void 0 : customStyle.correct) || 'rgb(255, 255, 255)',
+            wrong: (customStyle === null || customStyle === void 0 ? void 0 : customStyle.wrong) || 'rgb(186, 66, 66)',
+            important: (customStyle === null || customStyle === void 0 ? void 0 : customStyle.important) || 'rgb(255, 196, 0)',
+            btn_bg: (customStyle === null || customStyle === void 0 ? void 0 : customStyle.important) || 'rgba(81, 114, 152, 0.406)',
+            btn_txt: (customStyle === null || customStyle === void 0 ? void 0 : customStyle.important) || 'white',
+            ctrl_bg: (customStyle === null || customStyle === void 0 ? void 0 : customStyle.important) || 'rgb(43, 39, 39)',
+            ctrl_text: (customStyle === null || customStyle === void 0 ? void 0 : customStyle.important) || 'gray',
+            bar_col: (customStyle === null || customStyle === void 0 ? void 0 : customStyle.important) || 'rgb(0, 126, 252)'
+        };
+    })();
     var _b = useState([]), originalText = _b[0], setoriginal = _b[1];
     var _c = useState([]), inputText = _c[0], setinput = _c[1];
     var _d = useState([]), textmap = _d[0], setmap = _d[1];
@@ -956,15 +991,18 @@ var TyperWriter = function (_a) {
     var mistakes = useRef(0);
     var unitdata = useRef({ words: 0, mistakes: 0 });
     var updatedetails = useRef(false);
-    var paragraphsize = 20;
+    var paragraphsize = 100;
     var currentparagraphsize = useRef(paragraphsize);
     var num_options = [20, 40, 80, 160];
     var initiate = function () {
         try {
             var text_1;
             if (custommode) {
+                countbytime ? settime(countbytime) : settime(true);
+                repetation && repetation > 10 ? setreps(repetation) : setreps(20);
                 if (custominput)
-                    text_1 = custominput;
+                    text_1 = custominput.split(' ');
+                text_1.length < 10 && (text_1 = generateText(numbers, symbols, paragraphsize));
             }
             else {
                 text_1 = generateText(numbers, symbols, paragraphsize);
@@ -977,6 +1015,7 @@ var TyperWriter = function (_a) {
             setstart(false);
             setresult(false);
             currentwordlocation.current = 0;
+            currentparagraphsize.current = paragraphsize;
             updatedetails.current = false;
             updateRef.current = false;
             setdetails([]);
@@ -1070,6 +1109,9 @@ var TyperWriter = function (_a) {
             updateRef.current = false;
         }
     }, [inputText, originalText, textmap]);
+    useEffect(function () {
+        setfocus(false);
+    }, [resultshow]);
     var text_addons = [
         {
             name: "# numbers",
@@ -1149,169 +1191,174 @@ var TyperWriter = function (_a) {
     var controller = function () {
         if (originalText) {
             return (React.createElement("label", { htmlFor: 'textinput', onMouseDown: function (e) { return e.preventDefault(); }, className: styles$1.controller, style: {
-                    opacity: "".concat((show) ? 0 : 1)
+                    opacity: "".concat((show) ? 0 : 1),
+                    backgroundColor: STYLE.ctrl_bg
                 } },
-                !custommode && text_addons.map(function (elem, i) { return (React.createElement("p", { key: "".concat(i, "th addon"), style: {
-                        color: elem.value ? 'yellow' : "gray"
+                text_addons.map(function (elem, i) { return (React.createElement("p", { key: "".concat(i, "th addon"), style: {
+                        color: elem.value ? STYLE.important : STYLE.ctrl_text
                     }, onClick: function () { return elem.func(); } }, elem.name)); }),
-                !custommode && React.createElement("p", { className: styles$1.bars }),
+                React.createElement("p", { className: styles$1.bars }),
                 typing_type.map(function (elem, i) { return (React.createElement("p", { key: "".concat(i, "th type"), style: {
-                        color: elem.value === time ? 'yellow' : "gray"
+                        color: elem.value === time ? STYLE.important : STYLE.ctrl_text
                     }, onClick: function () { return elem.func(); } }, elem.name)); }),
                 React.createElement("p", { className: styles$1.bars }),
                 num_options.map(function (elem, i) { return (React.createElement("p", { key: "".concat(i, "th value"), style: {
-                        color: reps === elem ? "yellow" : "gray",
+                        color: reps === elem ? STYLE.important : STYLE.ctrl_text,
                     }, onClick: function () { return setreps(elem); } }, elem)); })));
         }
     };
-    return (React.createElement(React.Fragment, null, resultshow ?
-        React.createElement("div", { className: styles$1.graph, style: {
-                backgroundColor: 'rgb(52, 48, 48)'
+    return (React.createElement(React.Fragment, null,
+        resultshow &&
+            React.createElement("div", { className: styles$1.graph, style: {
+                    backgroundColor: STYLE.bg
+                } },
+                React.createElement(Result, { data: details, timelimit: reps, styling: STYLE, setdata: setdata }),
+                React.createElement("button", { htmlFor: 'textinput', onMouseDown: function (e) { return e.preventDefault(); }, className: styles$1.btn, onClick: function () { return __awaiter(void 0, void 0, void 0, function () {
+                        return __generator(this, function (_a) {
+                            initiate();
+                            return [2 /*return*/];
+                        });
+                    }); } }, "reset")),
+        React.createElement("div", { className: "".concat(!custommode ? styles$1.page : styles$1.part), style: {
+                backgroundColor: STYLE.bg
             } },
-            React.createElement(Result, { data: details, timelimit: reps }),
-            React.createElement("button", { htmlFor: 'textinput', onMouseDown: function (e) { return e.preventDefault(); }, className: styles$1.btn, onClick: function () { return __awaiter(void 0, void 0, void 0, function () {
-                    return __generator(this, function (_a) {
-                        initiate();
-                        return [2 /*return*/];
-                    });
-                }); } }, "reset"))
-        :
-            React.createElement("div", { className: styles$1.page },
-                controller(),
-                React.createElement("p", { style: {
-                        opacity: "".concat((show) ? 1 : 0),
-                        color: 'gold'
-                    } }, initialtime),
-                React.createElement("div", { onMouseDown: function (e) { return e.preventDefault(); }, onMouseLeave: function (e) { return setshow(false); }, className: styles$1.textfield },
-                    React.createElement("label", { ref: TextareaRef, className: styles$1.textspace, htmlFor: "textinput" }, textmap.map(function (region, i) { return (React.createElement("span", { key: "".concat(i, "th checked"), style: {
-                            marginRight: "10px",
-                        } }, region.map(function (p, j) { return (React.createElement("span", { key: "".concat(i).concat(j, "th checked"), style: {
-                            color: p === "N" ? 'gray' : p === 'T' ? 'white' : 'rgb(186, 66, 66)',
-                            padding: '0px 2px',
-                            fontWeight: '400'
-                        } }, !originalText[i][j] ? inputText[i][j] : originalText[i][j])); }))); })),
-                    React.createElement("label", { htmlFor: "textinput", className: "".concat(styles$1.textcover, " ").concat(focused ? styles$1.hide : '') }, "click here to continue")),
-                React.createElement("textarea", { id: 'textinput', onFocus: function () {
-                        setfocus(true);
-                    }, onBlur: function () {
-                        setfocus(false);
-                        setshow(false);
-                    }, className: styles$1.textarea, onChange: function (e) {
-                        try {
-                            if (!start) {
-                                setstart(true);
-                            }
-                            setshow(true);
-                            switch (e.nativeEvent.inputType) {
-                                case "insertText":
-                                    {
-                                        updateRef.current = true;
+            !custommode && controller(),
+            React.createElement("p", { style: {
+                    opacity: "".concat((show) ? 1 : 0),
+                    color: STYLE.important
+                } }, initialtime),
+            React.createElement("div", { onMouseDown: function (e) { return e.preventDefault(); }, onMouseLeave: function (e) { return setshow(false); }, className: styles$1.textfield },
+                React.createElement("label", { ref: TextareaRef, className: styles$1.textspace, htmlFor: "textinput" }, textmap.map(function (region, i) { return (React.createElement("span", { key: "".concat(i, "th checked"), style: {
+                        marginRight: "10px",
+                    } }, region.map(function (p, j) { return (React.createElement("span", { key: "".concat(i).concat(j, "th checked"), style: {
+                        color: p === "N" ? STYLE.text : p === 'T' ? STYLE.correct : STYLE.wrong,
+                        padding: '0px 2px',
+                        fontWeight: '400'
+                    } }, !originalText[i][j] ? inputText[i][j] : originalText[i][j])); }))); })),
+                React.createElement("label", { htmlFor: "textinput", className: "".concat(styles$1.textcover, " ").concat(focused ? styles$1.hide : '') }, "click here to continue")),
+            React.createElement("textarea", { id: 'textinput', onFocus: function () {
+                    setfocus(true);
+                }, onBlur: function () {
+                    setfocus(false);
+                    setshow(false);
+                }, className: styles$1.textarea, onChange: function (e) {
+                    try {
+                        if (resultshow)
+                            return;
+                        if (!start) {
+                            setstart(true);
+                        }
+                        setshow(true);
+                        switch (e.nativeEvent.inputType) {
+                            case "insertText":
+                                {
+                                    updateRef.current = true;
+                                    if (!time) {
+                                        updatedetails.current = true;
+                                    }
+                                    var data = e.nativeEvent.data;
+                                    if (data === " ") {
                                         if (!time) {
-                                            updatedetails.current = true;
+                                            setinit(function (prev) { return prev + 1; });
                                         }
-                                        var data = e.nativeEvent.data;
-                                        if (data === " ") {
-                                            if (!time) {
-                                                setinit(function (prev) { return prev + 1; });
-                                            }
-                                            var ip = __spreadArray([], inputText, true);
-                                            if (ip[currentwordlocation.current].length < 1)
-                                                return;
-                                            currentwordlocation.current++;
-                                            unitdata.current.words++;
-                                            ip.push("");
-                                            setinput(ip);
+                                        var ip = __spreadArray([], inputText, true);
+                                        if (ip[currentwordlocation.current].length < 1)
+                                            return;
+                                        currentwordlocation.current++;
+                                        unitdata.current.words++;
+                                        ip.push("");
+                                        setinput(ip);
+                                    }
+                                    else {
+                                        var ip = __spreadArray([], inputText, true);
+                                        var word = ip[currentwordlocation.current];
+                                        word += data;
+                                        ip[currentwordlocation.current] = word;
+                                        setinput(ip);
+                                    }
+                                }
+                                break;
+                            case "deleteContentBackward":
+                                {
+                                    if (time) {
+                                        updateRef.current = true;
+                                        var ip = __spreadArray([], inputText, true);
+                                        var word = ip[currentwordlocation.current];
+                                        var map = __spreadArray([], textmap, true);
+                                        if (word.length > 0) {
+                                            map[currentwordlocation.current][word.length - 1] = "N";
+                                            word = word.slice(0, word.length - 1);
+                                            ip[currentwordlocation.current] = word;
                                         }
                                         else {
-                                            var ip = __spreadArray([], inputText, true);
-                                            var word = ip[currentwordlocation.current];
-                                            word += data;
-                                            ip[currentwordlocation.current] = word;
-                                            setinput(ip);
+                                            currentwordlocation.current--;
+                                            ip.pop();
                                         }
+                                        setinput(ip);
+                                        setmap(map);
                                     }
-                                    break;
-                                case "deleteContentBackward":
-                                    {
-                                        if (time) {
-                                            updateRef.current = true;
-                                            var ip = __spreadArray([], inputText, true);
-                                            var word = ip[currentwordlocation.current];
-                                            var map = __spreadArray([], textmap, true);
-                                            if (word.length > 0) {
-                                                map[currentwordlocation.current][word.length - 1] = "N";
-                                                word = word.slice(0, word.length - 1);
-                                                ip[currentwordlocation.current] = word;
+                                    else {
+                                        var ip = __spreadArray([], inputText, true);
+                                        var word = ip[currentwordlocation.current];
+                                        var map = __spreadArray([], textmap, true);
+                                        map[currentwordlocation.current][word.length - 1] = "N";
+                                        word = word.slice(0, word.length - 1);
+                                        ip[currentwordlocation.current] = word;
+                                        setinput(ip);
+                                        setmap(map);
+                                    }
+                                }
+                                break;
+                            case "deleteWordBackward":
+                                {
+                                    if (time) {
+                                        updateRef.current = true;
+                                        var ip = __spreadArray([], inputText, true);
+                                        var map = __spreadArray([], textmap, true);
+                                        map[currentwordlocation.current] = new Array(originalText[currentwordlocation.current].length).fill("N");
+                                        if (currentwordlocation.current > 0) {
+                                            if (ip[currentwordlocation.current].length > 0) {
+                                                ip[currentwordlocation.current] = "";
                                             }
                                             else {
                                                 currentwordlocation.current--;
                                                 ip.pop();
                                             }
-                                            setinput(ip);
-                                            setmap(map);
                                         }
                                         else {
-                                            var ip = __spreadArray([], inputText, true);
-                                            var word = ip[currentwordlocation.current];
-                                            var map = __spreadArray([], textmap, true);
-                                            map[currentwordlocation.current][word.length - 1] = "N";
-                                            word = word.slice(0, word.length - 1);
-                                            ip[currentwordlocation.current] = word;
-                                            setinput(ip);
-                                            setmap(map);
-                                        }
-                                    }
-                                    break;
-                                case "deleteWordBackward":
-                                    {
-                                        if (time) {
-                                            updateRef.current = true;
-                                            var ip = __spreadArray([], inputText, true);
-                                            var map = __spreadArray([], textmap, true);
-                                            map[currentwordlocation.current] = new Array(originalText[currentwordlocation.current].length).fill("N");
-                                            if (currentwordlocation.current > 0) {
-                                                if (ip[currentwordlocation.current].length > 0) {
-                                                    ip[currentwordlocation.current] = "";
-                                                }
-                                                else {
-                                                    currentwordlocation.current--;
-                                                    ip.pop();
-                                                }
-                                            }
-                                            else {
-                                                ip[currentwordlocation.current] = "";
-                                            }
-                                            setinput(ip);
-                                            setmap(map);
-                                        }
-                                        else {
-                                            var ip = __spreadArray([], inputText, true);
-                                            var map = __spreadArray([], textmap, true);
-                                            map[currentwordlocation.current] = new Array(originalText[currentwordlocation.current].length).fill("N");
                                             ip[currentwordlocation.current] = "";
-                                            setinput(ip);
-                                            setmap(map);
                                         }
+                                        setinput(ip);
+                                        setmap(map);
                                     }
-                                    break;
-                                default:
-                                    console.log("unidentified case in textarea change: ", e.nativeEvent.inputType);
-                            }
+                                    else {
+                                        var ip = __spreadArray([], inputText, true);
+                                        var map = __spreadArray([], textmap, true);
+                                        map[currentwordlocation.current] = new Array(originalText[currentwordlocation.current].length).fill("N");
+                                        ip[currentwordlocation.current] = "";
+                                        setinput(ip);
+                                        setmap(map);
+                                    }
+                                }
+                                break;
+                            default:
+                                console.log("unidentified case in textarea change: ", e.nativeEvent.inputType);
                         }
-                        catch (error) {
-                            console.log(error);
-                        }
-                    }, value: inputText, name: "" }),
-                React.createElement("button", { htmlFor: 'textinput', onMouseDown: function (e) { return e.preventDefault(); }, className: styles$1.btn, style: {
-                        opacity: "".concat((show) ? 0 : 1),
-                    }, onClick: function () { return __awaiter(void 0, void 0, void 0, function () {
-                        return __generator(this, function (_a) {
-                            initiate();
-                            return [2 /*return*/];
-                        });
-                    }); } }, "generate"),
-                textmap &&
-                    React.createElement("span", { className: styles$1.bar, ref: barRef }, "|"))));
+                    }
+                    catch (error) {
+                        console.log(error);
+                    }
+                }, value: inputText, name: "" }),
+            !custommode && React.createElement("button", { htmlFor: 'textinput', onMouseDown: function (e) { return e.preventDefault(); }, className: styles$1.btn, style: {
+                    opacity: "".concat((show) ? 0 : 1),
+                }, onClick: function () { return __awaiter(void 0, void 0, void 0, function () {
+                    return __generator(this, function (_a) {
+                        initiate();
+                        return [2 /*return*/];
+                    });
+                }); } }, "generate"),
+            textmap &&
+                React.createElement("span", { className: styles$1.bar, ref: barRef }, "|"))));
 };
 
 export { TyperWriter as default };

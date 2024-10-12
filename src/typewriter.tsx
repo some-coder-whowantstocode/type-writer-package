@@ -69,7 +69,7 @@ const TyperWriter : React.FC<Typewriterprops> = ({custommode, custominput, count
     const mistakes = useRef(0);
     const unitdata = useRef({words:0, mistakes: 0});
     const updatedetails = useRef(false);
-    const paragraphsize = 20;
+    const paragraphsize = 100;
     const currentparagraphsize = useRef(paragraphsize);
     const num_options = [20, 40, 80, 160]
 
@@ -114,6 +114,7 @@ const TyperWriter : React.FC<Typewriterprops> = ({custommode, custominput, count
             setstart(false);
             setresult(false);
             currentwordlocation.current = 0;
+            currentparagraphsize.current = paragraphsize;
             updatedetails.current = false;
             updateRef.current = false;
             setdetails([]);
@@ -198,6 +199,10 @@ const TyperWriter : React.FC<Typewriterprops> = ({custommode, custominput, count
             updateRef.current = false;
         }
     },[inputText, originalText, textmap])
+
+    useEffect(()=>{
+        setfocus(false);
+    },[resultshow])
 
     const text_addons = [
         {

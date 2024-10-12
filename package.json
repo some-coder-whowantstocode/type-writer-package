@@ -1,8 +1,8 @@
 {
   "name": "@vik_9827/type-writer",
-  "version": "1.0.5",
+  "version": "1.0.7",
   "description": "A npm package made with typescript for custom typeing tool",
-  "main": "dist/index.js",
+  "main": "dist/bundel.js",
   "type": "module",
   "keywords": [
     "typing",

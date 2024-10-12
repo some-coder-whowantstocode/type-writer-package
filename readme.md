@@ -1,4 +1,4 @@
-# Type-Writer: A Typing Test Component
+# @vik_9827/Type-Writer: A Typing Test Component
 
 ## Overview
 
@@ -66,21 +66,48 @@ Now, you can add a couple of customizations to the TypeWriter component :
 
 ## Example code 
 
+### simple usage
+
 
 ```
-const data=(prop : object)=>{
+"use client"
+import TypeWriter from '@vik_9827/type-writer/dist/bundle';
+
+const component =()=>{
+
+    const data=(prop : object)=>{
     console.log(prop);
+    }
+
+    return(
+        <TypeWriter />
+    )
 }
+```
 
+### Custom usage
 
-<TypeWriter
-    custommode={true}
-    custominput="Your custom string here"
-    countbytime={false}
-    repetition={30}
-    customStyle={{}}
-    getdata={data}
-/>
+```
+"use client"
+import TypeWriter from '@vik_9827/type-writer/dist/bundle';
+
+const component =()=>{
+
+    const data=(prop : object)=>{
+    console.log(prop);
+    }
+
+    return(
+        <TypeWriter
+        custommode={true}
+        custominput="Your custom string here"
+        countbytime={false}
+        repetition={30}
+        customStyle={{}}
+        getdata={data}
+        />
+    )
+}
 ```
 
 

@@ -13,7 +13,9 @@ export default {
     },
     external: ['react', 'react-dom'],
     plugins: [
-        typescript(),
+        typescript({
+            tsconfig: './tsconfig.json'
+        }),
         postcss({
             modules: true,  
             extract:false
