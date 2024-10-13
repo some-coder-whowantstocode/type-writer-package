@@ -727,7 +727,7 @@ var Result = function (_a) {
         setrwpm(raw_w);
         setaccuracy(acc);
         settime(secs);
-        setdata({
+        setdata && setdata({
             wpm: w.length > 0 ? w[w.length - 1] : 0,
             raw_wpm: raw_w.length > 0 ? raw_w[raw_w.length - 1] : 0,
             accuracy: avgval.current.accuracy,

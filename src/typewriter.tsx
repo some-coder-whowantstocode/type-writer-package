@@ -3,28 +3,7 @@ import React, {useState, useEffect, useRef, useLayoutEffect} from 'react';
 import { generateText, matchText, wpm } from './helper';
 import styles from './index.module.css'
 import Result from './result';
-
-interface customstyles{
-    bg?:string,
-    text?:string,
-    correct?:string,
-    wrong?:string,
-    important?:string,
-    btn_bg?:string,
-    btn_txt?:string,
-    ctrl_bg?:string,
-    ctrl_text?:string,
-    bar_col?:string
-}
-
-interface Typewriterprops {
-    custommode?: boolean;
-    custominput?: string;
-    countbytime?: boolean;
-    repetation?: number;
-    customStyle?: customstyles;
-    setdata?: Function;
-}
+import { Typewriterprops } from './type';
 
 const TyperWriter : React.FC<Typewriterprops> = ({custommode, custominput, countbytime, repetation, customStyle, setdata })=>{
 

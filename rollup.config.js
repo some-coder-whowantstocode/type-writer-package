@@ -3,9 +3,9 @@ import postcss from 'rollup-plugin-postcss';
 import json from '@rollup/plugin-json';
 import copy from 'rollup-plugin-copy';
 import nextjs from '@rollup/plugin-node-resolve';
-import path from 'path'
+import dts from 'rollup-plugin-dts'
 
-export default {
+export default [{
     input: 'src/typewriter.tsx',
     output: {
         file: 'dist/bundle.js',
@@ -29,4 +29,15 @@ export default {
         }),
         nextjs()
     ]
-};
+},
+{
+    input:'src/type.tsx',
+    output:{
+        file:'dist/bundle.d.ts',
+        format:'es'
+    },
+    plugins:[
+        dts()
+    ]
+}
+];
