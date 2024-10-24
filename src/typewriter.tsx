@@ -179,9 +179,9 @@ const TyperWriter : React.FC<Typewriterprops> = ({custommode, float, custominput
         }
     },[inputText, originalText, textmap])
 
-    useEffect(()=>{
-        setfocus(false);
-    },[resultshow])
+    // useEffect(()=>{
+    //     setfocus(false);
+    // },[resultshow])
 
     const text_addons = [
         {
