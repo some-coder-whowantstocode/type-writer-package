@@ -18,4 +18,6 @@ export interface Typewriterprops {
     repetation?: number;
     customStyle?: customstyles;
     setdata?: Function;
+    auto?:boolean;
+    float?:boolean;
 }

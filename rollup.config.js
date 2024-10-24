@@ -31,7 +31,7 @@ export default [{
     ]
 },
 {
-    input:'src/type.tsx',
+    input:'src/typewriter.tsx',
     output:{
         file:'dist/bundle.d.ts',
         format:'es'

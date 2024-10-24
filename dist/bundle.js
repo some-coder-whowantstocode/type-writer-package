@@ -692,7 +692,7 @@ function styleInject(css, ref) {
   }
 }
 
-var css_248z$1 = ".index-module_page__e4R6n{\r\n    padding: 0;\r\n    margin: 0;\r\n    height: 100vh;\r\n    overflow-x: hidden;\r\n    display: flex;\r\n    align-items: center;\r\n    flex-direction: column;\r\n    background-color: rgb(59, 59, 59);\r\n    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;\r\n    position: relative;\r\n}\r\n\r\n.index-module_part__mxzWF{\r\n    overflow-x: hidden;\r\n    display: flex;\r\n    align-items: center;\r\n    flex-direction: column;\r\n    background-color: rgb(59, 59, 59);\r\n    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;\r\n    position: relative;\r\n}\r\n\r\n.index-module_graph__Kjafh{\r\n    height: 100vh;\r\n    width: 100vw;\r\n    position: absolute;\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: center;\r\n    flex-direction: column;\r\n    top: 0;\r\n    left: 0;\r\n    z-index: 100000;\r\n}\r\n\r\n.index-module_controller__sU6yo{\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: center;\r\n    border-radius: 0.7rem;\r\n    font-size: 0.8rem;\r\n    margin: 6rem 0 2rem 0rem;\r\n}\r\n\r\n.index-module_controller__sU6yo p{\r\n    margin: 0.5rem;\r\n    cursor: pointer;\r\n    box-sizing: border-box;\r\n}\r\n\r\n.index-module_textfield__Twesk{\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: center;\r\n    flex-direction: column;\r\n    position: relative;\r\n    overflow: hidden;\r\n    box-shadow: inset 0px 1px 6px 0px rgb(52, 48, 48);\r\n    width: 100vw;\r\n\r\n}\r\n\r\n.index-module_textarea__cMW-q{\r\n    opacity: 0;\r\n    height: 0;\r\n    width: 0;\r\n}\r\n\r\n.index-module_textspace__kRbNE{\r\n    padding: 1rem;\r\n    margin: 1rem;\r\n    font-size: 1.4rem;\r\n    font-weight: 300;\r\n    word-break:break-all;\r\n    color: rgb(116, 108, 108);\r\n    height:5.2rem;\r\n    position: relative;\r\n    top: 0px;\r\n}\r\n\r\n\r\n.index-module_textcover__OvpTC{\r\n    position: absolute;\r\n    height: 100%;\r\n    width: 100vw;\r\n    color: white;\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: center;\r\n    background-color: rgba(50, 49, 49, 0.817);\r\n}\r\n\r\n.index-module_hide__wk9CD{\r\n    opacity: 0;\r\n}\r\n\r\n.index-module_btn__qo6sS{\r\n    background-color: rgba(81, 114, 152, 0.406);\r\n    color: white;\r\n    border: none;\r\n    padding: 0.5rem 1rem;\r\n    cursor: pointer;\r\n    margin: 1rem 0rem;\r\n    border-radius: 0.7rem;\r\n}\r\n.index-module_btn__qo6sS:hover{\r\n    background-color: rgba(109, 131, 155, 0.406);\r\n}\r\n\r\n.index-module_bar__kSGlx{\r\n    color: rgb(0, 126, 252);\r\n    font-weight: 200;\r\n    font-size: 1.4rem;\r\n    position: absolute;\r\n    transition:all 0.2s ;\r\n}\r\n\r\n.index-module_bars__hL5-Y{\r\n    background-color: gray;\r\n    height: 50%;\r\n    width: 2px;\r\n\r\n}";
+var css_248z$1 = ".index-module_page__e4R6n{\r\n    padding: 0;\r\n    margin: 0;\r\n    height: 100vh;\r\n    overflow-x: hidden;\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: center;\r\n    flex-direction: column;\r\n    background-color: rgb(59, 59, 59);\r\n    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;\r\n    position: relative;\r\n}\r\n\r\n.index-module_part__mxzWF{\r\n    overflow-x: hidden;\r\n    display: flex;\r\n    align-items: center;\r\n    flex-direction: column;\r\n    background-color: rgb(59, 59, 59);\r\n    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;\r\n    position: relative;\r\n    height: fit-content;\r\n}\r\n\r\n.index-module_graph__Kjafh{\r\n    height: 100vh;\r\n    width: 100vw;\r\n    position: absolute;\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: center;\r\n    flex-direction: column;\r\n    top: 0;\r\n    left: 0;\r\n    z-index: 100000;\r\n}\r\n\r\n.index-module_controller__sU6yo{\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: center;\r\n    border-radius: 0.7rem;\r\n    font-size: 0.8rem;\r\n    margin: 6rem 0 2rem 0rem;\r\n}\r\n\r\n.index-module_controller__sU6yo p{\r\n    margin: 0.5rem;\r\n    cursor: pointer;\r\n    box-sizing: border-box;\r\n}\r\n\r\n.index-module_textfield__Twesk{\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: center;\r\n    flex-direction: column;\r\n    position: relative;\r\n    overflow: hidden;\r\n    box-shadow: inset 0px 1px 6px 0px rgb(52, 48, 48);\r\n    width: 100vw;\r\n\r\n}\r\n\r\n.index-module_textarea__cMW-q{\r\n    opacity: 0;\r\n    height: 0;\r\n    width: 0;\r\n}\r\n\r\n.index-module_textspace__kRbNE{\r\n    padding: 1rem;\r\n    margin: 1rem;\r\n    font-size: 1.4rem;\r\n    font-weight: 300;\r\n    word-break:break-all;\r\n    color: rgb(116, 108, 108);\r\n    height:5.2rem;\r\n    position: relative;\r\n    top: 0px;\r\n}\r\n\r\n\r\n.index-module_textcover__OvpTC{\r\n    position: absolute;\r\n    height: 100%;\r\n    width: 100vw;\r\n    color: white;\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: center;\r\n    background-color: rgba(50, 49, 49, 0.817);\r\n}\r\n\r\n.index-module_hide__wk9CD{\r\n    opacity: 0;\r\n}\r\n\r\n.index-module_btn__qo6sS{\r\n    background-color: rgba(81, 114, 152, 0.406);\r\n    color: white;\r\n    border: none;\r\n    padding: 0.5rem 1rem;\r\n    cursor: pointer;\r\n    margin: 1rem 0rem;\r\n    border-radius: 0.7rem;\r\n}\r\n.index-module_btn__qo6sS:hover{\r\n    background-color: rgba(109, 131, 155, 0.406);\r\n}\r\n\r\n.index-module_bar__kSGlx{\r\n    color: rgb(0, 126, 252);\r\n    font-weight: 200;\r\n    font-size: 1.4rem;\r\n    position: absolute;\r\n    transition:all 0.2s ;\r\n}\r\n\r\n.index-module_bars__hL5-Y{\r\n    background-color: gray;\r\n    height: 50%;\r\n    width: 2px;\r\n\r\n}";
 var styles$1 = {"page":"index-module_page__e4R6n","part":"index-module_part__mxzWF","graph":"index-module_graph__Kjafh","controller":"index-module_controller__sU6yo","textfield":"index-module_textfield__Twesk","textarea":"index-module_textarea__cMW-q","textspace":"index-module_textspace__kRbNE","textcover":"index-module_textcover__OvpTC","hide":"index-module_hide__wk9CD","btn":"index-module_btn__qo6sS","bar":"index-module_bar__kSGlx","bars":"index-module_bars__hL5-Y"};
 styleInject(css_248z$1);
 
@@ -953,7 +953,7 @@ var Result = function (_a) {
 };
 
 var TyperWriter = function (_a) {
-    var custommode = _a.custommode, custominput = _a.custominput, countbytime = _a.countbytime, repetation = _a.repetation, customStyle = _a.customStyle, setdata = _a.setdata;
+    var custommode = _a.custommode; _a.float; var custominput = _a.custominput, countbytime = _a.countbytime, repetation = _a.repetation, customStyle = _a.customStyle, setdata = _a.setdata, auto = _a.auto;
     var STYLE = (function () {
         return {
             bg: (customStyle === null || customStyle === void 0 ? void 0 : customStyle.bg) || 'rgb(52, 48, 48)',
@@ -980,7 +980,7 @@ var TyperWriter = function (_a) {
     var _l = useState(20), reps = _l[0], setreps = _l[1];
     var _m = useState(false), resultshow = _m[0], setresult = _m[1];
     var _o = useState([]), details = _o[0], setdetails = _o[1];
-    var _p = useState(false), start = _p[0], setstart = _p[1];
+    var _p = useState(auto ? true : false), start = _p[0], setstart = _p[1];
     var TextareaRef = useRef(null);
     var currentwordlocation = useRef(0);
     var updateRef = useRef(false);
@@ -1012,7 +1012,7 @@ var TyperWriter = function (_a) {
             var tmap = new Array(i).fill("").map(function (t, i) { return new Array(text_1[i].length).fill("N"); });
             setmap(tmap);
             setinput([""]);
-            setstart(false);
+            setstart(auto ? true : false);
             setresult(false);
             currentwordlocation.current = 0;
             currentparagraphsize.current = paragraphsize;
@@ -1219,7 +1219,7 @@ var TyperWriter = function (_a) {
                             return [2 /*return*/];
                         });
                     }); } }, "reset")),
-        React.createElement("div", { className: "".concat(!custommode ? styles$1.page : styles$1.part), style: {
+        React.createElement("div", { className: "".concat(styles$1.page), style: {
                 backgroundColor: STYLE.bg
             } },
             !custommode && controller(),

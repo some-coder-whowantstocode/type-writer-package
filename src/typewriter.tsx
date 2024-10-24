@@ -5,7 +5,7 @@ import styles from './index.module.css'
 import Result from './result';
 import { Typewriterprops } from './type';
 
-const TyperWriter : React.FC<Typewriterprops> = ({custommode, custominput, countbytime, repetation, customStyle, setdata })=>{
+const TyperWriter : React.FC<Typewriterprops> = ({custommode, float, custominput, countbytime, repetation, customStyle, setdata, auto })=>{
 
 
     const STYLE = (()=>{
@@ -36,7 +36,7 @@ const TyperWriter : React.FC<Typewriterprops> = ({custommode, custominput, count
     const [reps, setreps] = useState(20);
     const [resultshow, setresult] = useState(false);
     const [details, setdetails] = useState([]);
-    const [start, setstart] = useState(false);
+    const [start, setstart] = useState(auto ? true : false);
 
     const TextareaRef = useRef(null);
     const currentwordlocation = useRef(0);
@@ -90,7 +90,7 @@ const TyperWriter : React.FC<Typewriterprops> = ({custommode, custominput, count
             const tmap = new Array(i).fill("").map((t,i)=>new Array(text[i].length).fill("N"));
             setmap(tmap);
             setinput([""]);
-            setstart(false);
+            setstart(auto ? true : false);
             setresult(false);
             currentwordlocation.current = 0;
             currentparagraphsize.current = paragraphsize;
@@ -348,7 +348,7 @@ const TyperWriter : React.FC<Typewriterprops> = ({custommode, custominput, count
         }
             <div
             className={
-                `${!custommode ? styles.page : styles.part}`
+                `${styles.page}`
             }
             style={{
                 backgroundColor:STYLE.bg
