@@ -5,7 +5,9 @@ import symbol from '../static/symbols.json' assert { type: 'json'};
 
 interface match {
     store: Array<Array<string>>,
-    wrongwords: number
+    wrongwords: number,
+    total:number,
+    correct:number
 }
 
 export const generateText = (numbers: boolean, symbols: boolean, size: number): Array<string> => {
@@ -51,30 +53,29 @@ export const generateText = (numbers: boolean, symbols: boolean, size: number): 
 }
 
 export const matchText = (input: Array<string>, target: Array<string>, store: Array<Array<string>>): match => {
-    let wrongwords = 0;
+    let wrongwords = 0, total = 0, correct= 0;
     for (let i = 0; i < input.length; i++) {
         if (input[i] !== target[i]) wrongwords++;
         for (let j = 0; j < input[i].length; j++) {
+            total++;
             if (input[i][j] === target[i][j]) {
+                correct++;
                 store[i][j] = "T";
             } else {
                 store[i][j] = "F";
             }
         }
     }
-    return { store, wrongwords };
+    return { store, wrongwords, total, correct };
 }
 
-export const wpm = (time: number, words: number, mistakes: number) => {
+export const wpm = (time: number, correctcharacters: number, totalcharacters:number, all:number, allwrong:number) => {
     try {
-        const timeInMinutes = time / 60;
-        const raw_wpm = Math.round(words / timeInMinutes) || 0;
+        const timeInMinutes = time/60;
+        const raw_wpm = Math.round((totalcharacters/5) / timeInMinutes) || 0;
+        const accuracy = Math.round(((all - allwrong)/all) * 100) || 0 ;
 
-        const accuracy = words > 0 ? Math.max(Math.round(((words - mistakes) / words) * 100), 0) : 0;
-
-        const mistakePenalty = mistakes > 0 ? Math.max((mistakes / words) * 100, 0) : 0;
-
-        const effective_wpm = Math.max(Math.round(raw_wpm * (accuracy / 100) * ((100 - mistakePenalty) / 100)), 0);
+        const effective_wpm = Math.round((correctcharacters/5) / timeInMinutes) || 0;
 
         return {
             wpm: effective_wpm,

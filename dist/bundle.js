@@ -633,12 +633,14 @@ var generateText = function (numbers, symbols, size) {
     }
 };
 var matchText = function (input, target, store) {
-    var wrongwords = 0;
+    var wrongwords = 0, total = 0, correct = 0;
     for (var i = 0; i < input.length; i++) {
         if (input[i] !== target[i])
             wrongwords++;
         for (var j = 0; j < input[i].length; j++) {
+            total++;
             if (input[i][j] === target[i][j]) {
+                correct++;
                 store[i][j] = "T";
             }
             else {
@@ -646,15 +648,14 @@ var matchText = function (input, target, store) {
             }
         }
     }
-    return { store: store, wrongwords: wrongwords };
+    return { store: store, wrongwords: wrongwords, total: total, correct: correct };
 };
-var wpm = function (time, words, mistakes) {
+var wpm = function (time, correctcharacters, totalcharacters, all, allwrong) {
     try {
         var timeInMinutes = time / 60;
-        var raw_wpm = Math.round(words / timeInMinutes) || 0;
-        var accuracy = words > 0 ? Math.max(Math.round(((words - mistakes) / words) * 100), 0) : 0;
-        var mistakePenalty = mistakes > 0 ? Math.max((mistakes / words) * 100, 0) : 0;
-        var effective_wpm = Math.max(Math.round(raw_wpm * (accuracy / 100) * ((100 - mistakePenalty) / 100)), 0);
+        var raw_wpm = Math.round((totalcharacters / 5) / timeInMinutes) || 0;
+        var accuracy = Math.round(((all - allwrong) / all) * 100) || 0;
+        var effective_wpm = Math.round((correctcharacters / 5) / timeInMinutes) || 0;
         return {
             wpm: effective_wpm,
             raw_wpm: raw_wpm,
@@ -693,7 +694,7 @@ function styleInject(css, ref) {
   }
 }
 
-var css_248z$1 = ".index-module_page__e4R6n{\r\n    padding: 0;\r\n    margin: 0;\r\n    height: 100vh;\r\n    overflow-x: hidden;\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: center;\r\n    flex-direction: column;\r\n    background-color: rgb(59, 59, 59);\r\n    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;\r\n    position: relative;\r\n}\r\n\r\n.index-module_part__mxzWF{\r\n    overflow-x: hidden;\r\n    display: flex;\r\n    align-items: center;\r\n    flex-direction: column;\r\n    background-color: rgb(59, 59, 59);\r\n    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;\r\n    position: relative;\r\n    height: fit-content;\r\n}\r\n\r\n.index-module_graph__Kjafh{\r\n    height: 100vh;\r\n    width: 100vw;\r\n    position: absolute;\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: center;\r\n    flex-direction: column;\r\n    top: 0;\r\n    left: 0;\r\n    z-index: 100000;\r\n}\r\n\r\n.index-module_controller__sU6yo{\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: center;\r\n    border-radius: 0.7rem;\r\n    font-size: 0.8rem;\r\n    margin: 6rem 0 2rem 0rem;\r\n}\r\n\r\n.index-module_controller__sU6yo p{\r\n    margin: 0.5rem;\r\n    cursor: pointer;\r\n    box-sizing: border-box;\r\n}\r\n\r\n.index-module_textfield__Twesk{\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: center;\r\n    flex-direction: column;\r\n    position: relative;\r\n    overflow: hidden;\r\n    box-shadow: inset 0px 1px 6px 0px rgb(52, 48, 48);\r\n    width: 100vw;\r\n\r\n}\r\n\r\n.index-module_textarea__cMW-q{\r\n    opacity: 0;\r\n    height: 0;\r\n    width: 0;\r\n}\r\n\r\n.index-module_textspace__kRbNE{\r\n    padding: 1rem;\r\n    margin: 1rem;\r\n    font-size: 1.4rem;\r\n    font-weight: 300;\r\n    word-break:break-all;\r\n    color: rgb(116, 108, 108);\r\n    height:5.2rem;\r\n    position: relative;\r\n    top: 0px;\r\n}\r\n\r\n\r\n.index-module_textcover__OvpTC{\r\n    position: absolute;\r\n    height: 100%;\r\n    width: 100vw;\r\n    color: white;\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: center;\r\n    background-color: rgba(50, 49, 49, 0.817);\r\n}\r\n\r\n.index-module_hide__wk9CD{\r\n    opacity: 0;\r\n}\r\n\r\n.index-module_btn__qo6sS{\r\n    background-color: rgba(81, 114, 152, 0.406);\r\n    color: white;\r\n    border: none;\r\n    padding: 0.5rem 1rem;\r\n    cursor: pointer;\r\n    margin: 1rem 0rem;\r\n    border-radius: 0.7rem;\r\n}\r\n.index-module_btn__qo6sS:hover{\r\n    background-color: rgba(109, 131, 155, 0.406);\r\n}\r\n\r\n.index-module_bar__kSGlx{\r\n    color: rgb(0, 126, 252);\r\n    font-weight: 200;\r\n    font-size: 1.4rem;\r\n    position: absolute;\r\n    transition:all 0.1s ;\r\n}\r\n\r\n.index-module_bars__hL5-Y{\r\n    background-color: gray;\r\n    height: 50%;\r\n    width: 2px;\r\n\r\n}";
+var css_248z$1 = ".index-module_page__e4R6n{\r\n    padding: 0;\r\n    margin: 0;\r\n    height: 100vh;\r\n    overflow-x: hidden;\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: center;\r\n    flex-direction: column;\r\n    background-color: rgb(59, 59, 59);\r\n    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;\r\n    position: relative;\r\n    -webkit-user-select: none;\r\n    -moz-user-select: none;\r\n    -ms-user-select: none; \r\n    user-select: none;\r\n}\r\n\r\n.index-module_part__mxzWF{\r\n    overflow-x: hidden;\r\n    display: flex;\r\n    align-items: center;\r\n    flex-direction: column;\r\n    background-color: rgb(59, 59, 59);\r\n    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;\r\n    position: relative;\r\n    height: fit-content;\r\n}\r\n\r\n.index-module_graph__Kjafh{\r\n    height: 100vh;\r\n    width: 100vw;\r\n    position: absolute;\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: center;\r\n    flex-direction: column;\r\n    top: 0;\r\n    left: 0;\r\n    z-index: 100000;\r\n}\r\n\r\n.index-module_controller__sU6yo{\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: center;\r\n    border-radius: 0.7rem;\r\n    font-size: 0.8rem;\r\n    margin: 6rem 0 2rem 0rem;\r\n}\r\n\r\n.index-module_controller__sU6yo p{\r\n    margin: 0.5rem;\r\n    cursor: pointer;\r\n    box-sizing: border-box;\r\n}\r\n\r\n.index-module_textfield__Twesk{\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: center;\r\n    flex-direction: column;\r\n    position: relative;\r\n    overflow: hidden;\r\n    box-shadow: inset 0px 1px 6px 0px rgb(52, 48, 48);\r\n    width: 100vw;\r\n\r\n}\r\n\r\n.index-module_textarea__cMW-q{\r\n    opacity: 0;\r\n    height: 0;\r\n    width: 0;\r\n}\r\n\r\n.index-module_textspace__kRbNE{\r\n    padding: 1rem;\r\n    margin: 1rem;\r\n    font-size: 1.4rem;\r\n    font-weight: 300;\r\n    word-break:break-all;\r\n    color: rgb(116, 108, 108);\r\n    height:5.2rem;\r\n    position: relative;\r\n    top: 0px;\r\n}\r\n\r\n\r\n.index-module_textcover__OvpTC{\r\n    position: absolute;\r\n    height: 100%;\r\n    width: 100vw;\r\n    color: white;\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: center;\r\n    background-color: rgba(50, 49, 49, 0.817);\r\n}\r\n\r\n.index-module_hide__wk9CD{\r\n    opacity: 0;\r\n}\r\n\r\n.index-module_btn__qo6sS{\r\n    background-color: rgba(81, 114, 152, 0.406);\r\n    color: white;\r\n    border: none;\r\n    padding: 0.5rem 1rem;\r\n    cursor: pointer;\r\n    margin: 1rem 0rem;\r\n    border-radius: 0.7rem;\r\n}\r\n.index-module_btn__qo6sS:hover{\r\n    background-color: rgba(109, 131, 155, 0.406);\r\n}\r\n\r\n.index-module_bar__kSGlx{\r\n    color: rgb(0, 126, 252);\r\n    font-weight: 200;\r\n    font-size: 1.4rem;\r\n    position: absolute;\r\n    transition:all 0.1s ;\r\n}\r\n\r\n.index-module_bars__hL5-Y{\r\n    background-color: gray;\r\n    height: 50%;\r\n    width: 2px;\r\n\r\n}";
 var styles$1 = {"page":"index-module_page__e4R6n","part":"index-module_part__mxzWF","graph":"index-module_graph__Kjafh","controller":"index-module_controller__sU6yo","textfield":"index-module_textfield__Twesk","textarea":"index-module_textarea__cMW-q","textspace":"index-module_textspace__kRbNE","textcover":"index-module_textcover__OvpTC","hide":"index-module_hide__wk9CD","btn":"index-module_btn__qo6sS","bar":"index-module_bar__kSGlx","bars":"index-module_bars__hL5-Y"};
 styleInject(css_248z$1);
 
@@ -995,6 +996,9 @@ var TyperWriter = function (_a) {
     var paragraphsize = 100;
     var currentparagraphsize = useRef(paragraphsize);
     var num_options = [20, 40, 80, 160];
+    var totalchars = useRef(0);
+    var correctchars = useRef(0);
+    var allchars = useRef({ total: 0, wrong: 0 });
     var initiate = function () {
         try {
             var text_1;
@@ -1027,6 +1031,9 @@ var TyperWriter = function (_a) {
             unitdata.current.mistakes = 0;
             TextareaRef.current.style = "";
             barRef.current.style = "";
+            totalchars.current = 0;
+            correctchars.current = 0;
+            allchars.current = { total: 0, wrong: 0 };
         }
         catch (err) {
             console.log("Error occured while initiating", err);
@@ -1044,7 +1051,9 @@ var TyperWriter = function (_a) {
         try {
             if (!updateRef.current)
                 return;
-            var _a = matchText(inputText, originalText, __spreadArray([], textmap, true)), store = _a.store, wrongwords = _a.wrongwords;
+            var _a = matchText(inputText, originalText, __spreadArray([], textmap, true)), store = _a.store, wrongwords = _a.wrongwords, total = _a.total, correct = _a.correct;
+            totalchars.current = total;
+            correctchars.current = correct;
             setmap(store);
             unitdata.current.mistakes = Math.max(wrongwords - mistakes.current, 0);
             mistakes.current = wrongwords;
@@ -1150,7 +1159,7 @@ var TyperWriter = function (_a) {
         if (!start)
             return;
         if (initialtime >= reps) {
-            var data_1 = wpm(initialtime, currentwordlocation.current, mistakes.current);
+            var data_1 = wpm(initialtime, correctchars.current, totalchars.current, allchars.current.total, allchars.current.wrong);
             setdetails(function (prev) { return __spreadArray(__spreadArray([], prev, true), [data_1], false); });
             setresult(true);
             setstart(false);
@@ -1158,7 +1167,7 @@ var TyperWriter = function (_a) {
         }
         else {
             if (updatedetails.current) {
-                var data_2 = wpm(initialtime, currentwordlocation.current, mistakes.current);
+                var data_2 = wpm(initialtime, correctchars.current, totalchars.current, allchars.current.total, allchars.current.wrong);
                 unitdata.current.words = 0;
                 unitdata.current.mistakes = 0;
                 setdetails(function (prev) { return __spreadArray(__spreadArray([], prev, true), [data_2], false); });
@@ -1252,6 +1261,7 @@ var TyperWriter = function (_a) {
                         setshow(true);
                         switch (e.nativeEvent.inputType) {
                             case "insertText":
+                                allchars.current.total++;
                                 {
                                     updateRef.current = true;
                                     if (!time) {
@@ -1276,6 +1286,14 @@ var TyperWriter = function (_a) {
                                         word += data;
                                         ip[currentwordlocation.current] = word;
                                         setinput(ip);
+                                        if (word.length > originalText[currentwordlocation.current].length) {
+                                            allchars.current.wrong++;
+                                        }
+                                        else {
+                                            if (word[word.length - 1] !== originalText[currentwordlocation.current][word.length - 1]) {
+                                                allchars.current.wrong++;
+                                            }
+                                        }
                                     }
                                 }
                                 break;
