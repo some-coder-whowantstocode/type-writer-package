@@ -1240,10 +1240,12 @@ var TyperWriter = function (_a) {
             React.createElement("div", { onMouseDown: function (e) { return e.preventDefault(); }, onMouseLeave: function (e) { return setshow(false); }, className: styles$1.textfield },
                 React.createElement("label", { ref: TextareaRef, className: styles$1.textspace, htmlFor: "textinput" }, textmap.map(function (region, i) { return (React.createElement("span", { key: "".concat(i, "th checked"), style: {
                         marginRight: "10px",
+                        whiteSpace: "nowrap"
                     } }, region.map(function (p, j) { return (React.createElement("span", { key: "".concat(i).concat(j, "th checked"), style: {
                         color: p === "N" ? STYLE.text : p === 'T' ? STYLE.correct : STYLE.wrong,
                         padding: '0px 2px',
-                        fontWeight: '400'
+                        fontWeight: '400',
+                        display: 'inline-block'
                     } }, !originalText[i][j] ? inputText[i][j] : originalText[i][j])); }))); })),
                 React.createElement("label", { htmlFor: "textinput", className: "".concat(styles$1.textcover, " ").concat(focused ? styles$1.hide : '') }, "click here to continue")),
             React.createElement("textarea", { id: 'textinput', onFocus: function () {

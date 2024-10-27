@@ -109,7 +109,7 @@ const TyperWriter: React.FC<Typewriterprops> = ({ custommode, float, custominput
             barRef.current.style = "";
             totalchars.current = 0;
             correctchars.current = 0;
-            allchars.current = {total:0,wrong:0}
+            allchars.current = { total: 0, wrong: 0 }
         } catch (err) {
             console.log("Error occured while initiating", err);
         }
@@ -384,30 +384,30 @@ const TyperWriter: React.FC<Typewriterprops> = ({ custommode, float, custominput
                         htmlFor="textinput"
                     >
 
-                        {
+                        {textmap.map((region, i) => (
+                            <span
+                                key={`${i}th checked`}
+                                style={{
+                                    marginRight: "10px",
+                                    whiteSpace: "nowrap"
+                                }}
+                            >
+                                {region.map((p, j) => (
+                                    <span
+                                        key={`${i}${j}th checked`}
+                                        style={{
+                                            color: p === "N" ? STYLE.text : p === 'T' ? STYLE.correct : STYLE.wrong,
+                                            padding: '0px 2px',
+                                            fontWeight: '400',
+                                            display: 'inline-block'
+                                        }}
+                                    >
+                                        {!originalText[i][j] ? inputText[i][j] : originalText[i][j]}
+                                    </span>
+                                ))}
+                            </span>
+                        ))}
 
-                            textmap.map((region, i) => (
-                                <span
-                                    key={`${i}th checked`}
-                                    style={{
-                                        marginRight: "10px",
-                                    }}
-                                >
-                                    {
-                                        region.map((p, j) => (
-                                            <span
-                                                key={`${i}${j}th checked`}
-                                                style={{
-                                                    color: p === "N" ? STYLE.text : p === 'T' ? STYLE.correct : STYLE.wrong,
-                                                    padding: '0px 2px',
-                                                    fontWeight: '400'
-                                                }}
-                                            >{!originalText[i][j] ? inputText[i][j] : originalText[i][j]}</span>
-                                        ))
-                                    }
-                                </span>
-                            ))
-                        }
                     </label>
                     <label
                         htmlFor="textinput"
